@@ -1,0 +1,130 @@
+:root {
+  --bg: #f6f6f8;
+  --card-bg: #ffffff;
+  --accent: #4a90e2;
+  --text: #333;
+  --radius: 16px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  font-family: "Noto Sans JP", sans-serif;
+  color: var(--text);
+}
+
+.header {
+  text-align: center;
+  margin: 24px 0 12px;
+}
+
+.title {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+/* コンテナの調整 */
+.container {
+  max-width: 400px; /* 任意。現在の幅に合わせて変更可能 */
+  width: 100%;
+  padding: 16px;
+  margin: 0 auto;
+}
+
+.card {
+  background: var(--card-bg);
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.card-title {
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.input-group {
+  margin-bottom: 16px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+}
+
+/* 入力欄 */
+input[type="number"],
+input[type="text"],
+input {
+  width: 100%; /* 親要素に合わせる */
+  max-width: 100%; /* はみ出し防止 */
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.input:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+}
+
+.button-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn {
+  padding: 10px 16px;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn.secondary {
+  background: #e0e0e0;
+}
+
+.btn.secondary:hover {
+  background: #d5d5d5;
+}
+
+/* 結果 1つ表示 */
+.result-single {
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--accent);
+  padding: 12px 0;
+}
+
+/* 行コンテナ（ラベル+入力） */
+.field-row {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+/* ラベル領域を固定幅にする */
+.field-row label {
+  width: 80px; /* 適宜調整 */
+  flex-shrink: 0;
+}
+
+/* 入力欄の列は残りを全部使う */
+.field-row .field-input {
+  flex: 1;
+}
+/* 全体のボックスモデルを統一 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}

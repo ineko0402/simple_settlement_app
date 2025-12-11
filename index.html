@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>清算仕訳ツール</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <h1 class="title">清算仕訳ツール</h1>
+    </header>
+
+    <main class="container">
+      <!-- 入力カード -->
+      <section class="card">
+        <h2 class="card-title">入力</h2>
+
+        <div class="input-group">
+          <label for="karibarai">仮払金</label>
+          <input
+            id="karibarai"
+            class="input"
+            type="text"
+            inputmode="numeric"
+            placeholder="15000"
+          />
+        </div>
+
+        <div class="input-group">
+          <label for="seisan">清算</label>
+          <input
+            id="seisan"
+            class="input"
+            type="text"
+            inputmode="numeric"
+            placeholder="14000"
+          />
+        </div>
+
+        <div class="input-group">
+          <label for="otsuri">おつり（任意変更可）</label>
+          <input
+            id="otsuri"
+            class="input"
+            type="text"
+            inputmode="numeric"
+            placeholder="0"
+          />
+        </div>
+
+        <div class="button-row">
+          <button id="resetButton" class="btn secondary">リセット</button>
+        </div>
+      </section>
+
+      <!-- 結果カード：1つだけ -->
+      <section class="card">
+        <h2 class="card-title">結果</h2>
+
+        <div class="result-single" id="resultOutput">0</div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
