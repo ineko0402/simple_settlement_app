@@ -131,7 +131,7 @@ input {
 }
 
 .btn {
-  padding: 10px 16px;
+  padding: 12px 20px;
   font-size: 0.95rem;
   border: none;
   border-radius: 8px;
@@ -140,6 +140,7 @@ input {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  min-height: 48px;
 }
 
 .btn-secondary {
@@ -180,7 +181,7 @@ input {
   border-radius: var(--radius);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
-  overflow-x: auto;
+  /* overflow-x: auto; 削除 */
 }
 
 .settlement-table th,
@@ -198,7 +199,8 @@ input {
 
 .settlement-table .number {
   text-align: right;
-  font-weight: 600;
+  font-weight: bold;
+  font-size: 1.1rem;
 }
 
 .settlement-table tr:nth-child(even) {
@@ -239,7 +241,6 @@ input {
   border-radius: var(--radius);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
-  overflow-x: auto;
 }
 
 .input-table th,
@@ -295,7 +296,6 @@ input {
   border-radius: var(--radius);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
-  overflow-x: auto;
 }
 
 .journal-table th,
@@ -313,7 +313,8 @@ input {
 
 .journal-table .number {
   text-align: right;
-  font-weight: 600;
+  font-weight: bold;
+  font-size: 1.1rem;
 }
 
 .journal-table tr:nth-child(even) {
@@ -334,7 +335,6 @@ input {
   border-radius: var(--radius);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
-  overflow-x: auto;
 }
 
 .output-table th,
@@ -352,7 +352,8 @@ input {
 
 .output-table .number {
   text-align: right;
-  font-weight: 600;
+  font-weight: bold;
+  font-size: 1.1rem;
 }
 
 .output-table tr:nth-child(even) {
@@ -398,6 +399,21 @@ input {
 @media (max-width: 600px) {
   .container {
     padding: 10px;
+    margin: 0;
+  }
+
+  .header {
+    margin: 10px 0;
+    padding: 5px 0;
+  }
+
+  .title {
+    font-size: 1.2rem;
+  }
+
+  /* 項目名を小さく */
+  .table-header {
+    font-size: 0.8rem;
   }
 
   /* 入金仕訳テーブルの科目列を非表示（金額のみ） */
