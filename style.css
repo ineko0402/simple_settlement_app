@@ -35,6 +35,12 @@ body {
 .header {
   text-align: center;
   margin: 24px 0 12px;
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 10;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
 }
 
 .title {
@@ -115,8 +121,8 @@ input {
 
 .input:focus {
   border-color: var(--accent);
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .button-row {
@@ -131,6 +137,9 @@ input {
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .btn-secondary {
@@ -210,14 +219,8 @@ input {
 
 .settlement-table .input:focus {
   border-color: var(--accent);
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
-}
-
-.settlement-table .input:focus {
-  border-color: var(--accent);
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 #resultOutput {
@@ -270,8 +273,8 @@ input {
 
 .input-table .input:focus {
   border-color: var(--accent);
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .input-table select {
@@ -377,10 +380,13 @@ input {
 }
 .section {
   display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .section.active {
   display: block;
+  opacity: 1;
 }
 *,
 *::before,

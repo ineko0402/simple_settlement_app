@@ -228,11 +228,11 @@ const body = document.body;
 
 themeToggle.addEventListener("click", () => {
   const currentTheme = body.getAttribute("data-theme");
-  if (currentTheme === "light") {
-    body.setAttribute("data-theme", "dark");
+  if (currentTheme === "dark") {
+    body.setAttribute("data-theme", "light");
     themeToggle.textContent = "☀️";
   } else {
-    body.setAttribute("data-theme", "light");
+    body.setAttribute("data-theme", "dark");
     themeToggle.textContent = "🌙";
   }
 });
