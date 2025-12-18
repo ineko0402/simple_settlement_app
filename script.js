@@ -140,3 +140,38 @@ resetNyukinButton.addEventListener("click", () => {
 });
 
 calculateNyukinButton.addEventListener("click", calculateNyukin);
+
+// 輸入消費税仕訳機能
+const paidTaxInput = document.getElementById("paidTax");
+const resetImportTaxButton = document.getElementById("resetImportTaxButton");
+const calculateImportTaxButton = document.getElementById("calculateImportTaxButton");
+const outputPaidTax = document.getElementById("outputPaidTax");
+const outputImportTax = document.getElementById("outputImportTax");
+const outputLocalTax = document.getElementById("outputLocalTax");
+
+// 輸入消費税計算
+function calculateImportTax() {
+  const paidTax = parseIntSafe(paidTaxInput.value);
+  if (paidTax <= 0) return;
+
+  const A = (paidTax + 100) / 0.1;
+  const B = Math.floor(A / 1000) * 1000;
+  const C = B * 0.078;
+  const importTax = Math.floor(C / 100) * 100;
+  const D = importTax * (22 / 78);
+  const localTax = Math.floor(D / 100) * 100;
+
+  outputPaidTax.textContent = formatNumber(paidTax);
+  outputImportTax.textContent = formatNumber(importTax);
+  outputLocalTax.textContent = formatNumber(localTax);
+}
+
+// イベントリスナー
+resetImportTaxButton.addEventListener("click", () => {
+  paidTaxInput.value = "";
+  outputPaidTax.textContent = "0";
+  outputImportTax.textContent = "0";
+  outputLocalTax.textContent = "0";
+});
+
+calculateImportTaxButton.addEventListener("click", calculateImportTax);

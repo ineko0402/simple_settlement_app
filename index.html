@@ -145,6 +145,52 @@
         </tr>
       </table>
     </main>
+    <main class="container">
+      <h2>輸入消費税仕訳</h2>
+
+      <table class="input-table">
+        <tr>
+          <th>入力項目</th>
+          <th>金額</th>
+        </tr>
+        <tr>
+          <td>支払消費税</td>
+          <td>
+            <input
+              id="paidTax"
+              class="input"
+              type="text"
+              inputmode="numeric"
+              placeholder="10000"
+            />
+          </td>
+        </tr>
+      </table>
+
+      <div class="button-row">
+        <button id="resetImportTaxButton" class="btn secondary">リセット</button>
+        <button id="calculateImportTaxButton" class="btn primary">計算</button>
+      </div>
+
+      <table class="output-table">
+        <tr>
+          <th>項目名</th>
+          <th>金額</th>
+        </tr>
+        <tr>
+          <td>支払消費税</td>
+          <td id="outputPaidTax">0</td>
+        </tr>
+        <tr>
+          <td>輸入消費税</td>
+          <td id="outputImportTax">0</td>
+        </tr>
+        <tr>
+          <td>地方消費税</td>
+          <td id="outputLocalTax">0</td>
+        </tr>
+      </table>
+    </main>
     <script src="script.js"></script>
   </body>
 </html>

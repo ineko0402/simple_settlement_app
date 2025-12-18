@@ -236,6 +236,34 @@ input {
   text-align: right;
   font-weight: 600;
 }
+
+/* 出力表スタイル */
+.output-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.output-table th,
+.output-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.output-table th {
+  background: var(--bg);
+  font-weight: 600;
+}
+
+.output-table td:nth-child(2) {
+  text-align: right;
+  font-weight: 600;
+}
 .field-row {
   display: flex;
   gap: 8px;
