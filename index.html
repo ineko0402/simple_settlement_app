@@ -64,6 +64,87 @@
       </div>
     </main>
 
+    <main class="container">
+      <h2>入金仕訳</h2>
+
+      <table class="input-table">
+        <tr>
+          <th>入力項目</th>
+          <th>金額</th>
+        </tr>
+        <tr>
+          <td>入金額</td>
+          <td>
+            <input
+              id="nyukinAmount"
+              class="input"
+              type="text"
+              inputmode="numeric"
+              placeholder="5000"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>手数料</td>
+          <td>
+            <input
+              id="tesuryo"
+              class="input"
+              type="text"
+              inputmode="numeric"
+              placeholder="440"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>消費税の端数処理</td>
+          <td>
+            <select id="taxRounding">
+              <option value="floor">切り捨て</option>
+              <option value="round">四捨五入</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+
+      <div class="button-row">
+        <button id="resetNyukinButton" class="btn secondary">リセット</button>
+        <button id="calculateNyukinButton" class="btn primary">計算</button>
+      </div>
+
+      <table class="journal-table">
+        <tr>
+          <th>借方科目</th>
+          <th>借方金額</th>
+          <th>貸方科目</th>
+          <th>貸方金額</th>
+        </tr>
+        <tr>
+          <td>預金</td>
+          <td id="debitYokin">0</td>
+          <td>収入</td>
+          <td id="creditSyunyu">0</td>
+        </tr>
+        <tr>
+          <td>手数料</td>
+          <td id="debitTesuryo">0</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>仮払消費税</td>
+          <td id="debitKariharaiTax">0</td>
+          <td>仮受消費税</td>
+          <td id="creditKariukeTax">0</td>
+        </tr>
+        <tr>
+          <td>借方合計</td>
+          <td id="debitTotal">0</td>
+          <td>貸方合計</td>
+          <td id="creditTotal">0</td>
+        </tr>
+      </table>
+    </main>
     <script src="script.js"></script>
   </body>
 </html>

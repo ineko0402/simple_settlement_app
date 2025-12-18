@@ -61,3 +61,82 @@ resetButton.addEventListener("click", () => {
   otsuriInput.value = "";
   resultOutput.textContent = "0";
 });
+
+// 入金仕訳機能
+const nyukinAmountInput = document.getElementById("nyukinAmount");
+const tesuryoInput = document.getElementById("tesuryo");
+const taxRoundingSelect = document.getElementById("taxRounding");
+const resetNyukinButton = document.getElementById("resetNyukinButton");
+const calculateNyukinButton = document.getElementById("calculateNyukinButton");
+const debitYokin = document.getElementById("debitYokin");
+const debitTesuryo = document.getElementById("debitTesuryo");
+const debitKariharaiTax = document.getElementById("debitKariharaiTax");
+const debitTotal = document.getElementById("debitTotal");
+const creditSyunyu = document.getElementById("creditSyunyu");
+const creditKariukeTax = document.getElementById("creditKariukeTax");
+const creditTotal = document.getElementById("creditTotal");
+
+// localStorageから設定読み込み
+window.addEventListener("load", () => {
+  const savedTesuryo = localStorage.getItem("tesuryo");
+  if (savedTesuryo) tesuryoInput.value = savedTesuryo;
+  const savedRounding = localStorage.getItem("taxRounding");
+  if (savedRounding) taxRoundingSelect.value = savedRounding;
+});
+
+// 設定保存
+function saveSettings() {
+  localStorage.setItem("tesuryo", tesuryoInput.value);
+  localStorage.setItem("taxRounding", taxRoundingSelect.value);
+}
+
+// 入金仕訳計算
+function calculateNyukin() {
+  const nyukin = parseIntSafe(nyukinAmountInput.value);
+  const tesuryo = parseIntSafe(tesuryoInput.value);
+  const rounding = taxRoundingSelect.value;
+
+  if (nyukin <= 0 || tesuryo < 0) return;
+
+  const debitTotalValue = nyukin + tesuryo;
+  const nyukinTax = nyukin - nyukin / 1.1;
+  const tesuryoTax = tesuryo - tesuryo / 1.1;
+  const totalTax = nyukinTax + tesuryoTax;
+  let roundedTotalTax;
+  if (rounding === "floor") {
+    roundedTotalTax = Math.floor(totalTax);
+  } else {
+    roundedTotalTax = Math.round(totalTax);
+  }
+  const syunyu = debitTotalValue - roundedTotalTax;
+  const tesuryoBody = Math.round(tesuryo / 1.1);
+  const kariharaiTax = Math.round(tesuryoTax);
+
+  debitYokin.textContent = formatNumber(nyukin);
+  debitTesuryo.textContent = formatNumber(tesuryoBody);
+  debitKariharaiTax.textContent = formatNumber(kariharaiTax);
+  debitTotal.textContent = formatNumber(debitTotalValue);
+  creditSyunyu.textContent = formatNumber(syunyu);
+  creditKariukeTax.textContent = formatNumber(roundedTotalTax);
+  creditTotal.textContent = formatNumber(debitTotalValue);
+}
+
+// イベントリスナー
+tesuryoInput.addEventListener("blur", saveSettings);
+taxRoundingSelect.addEventListener("change", saveSettings);
+
+resetNyukinButton.addEventListener("click", () => {
+  nyukinAmountInput.value = "";
+  tesuryoInput.value = "";
+  taxRoundingSelect.value = "floor";
+  debitYokin.textContent = "0";
+  debitTesuryo.textContent = "0";
+  debitKariharaiTax.textContent = "0";
+  debitTotal.textContent = "0";
+  creditSyunyu.textContent = "0";
+  creditKariukeTax.textContent = "0";
+  creditTotal.textContent = "0";
+  saveSettings();
+});
+
+calculateNyukinButton.addEventListener("click", calculateNyukin);
