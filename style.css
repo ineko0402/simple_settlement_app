@@ -25,7 +25,7 @@ body {
   margin: 0;
   padding: 0;
   background: var(--bg);
-  font-family: "Noto Sans JP", sans-serif;
+  font-family: 'Inter', sans-serif;
   color: var(--text);
 }
 
@@ -68,9 +68,9 @@ body {
 
 /* コンテナの調整 */
 .container {
-  max-width: 400px; /* 任意。現在の幅に合わせて変更可能 */
+  max-width: 800px;
   width: 100%;
-  padding: 16px;
+  padding: 20px;
   margin: 0 auto;
 }
 
@@ -159,12 +159,14 @@ input {
 /* 表スタイル */
 .settlement-table {
   width: 100%;
+  min-width: 600px;
+  table-layout: fixed;
   border-collapse: collapse;
   background: var(--card-bg);
   border-radius: var(--radius);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
-  overflow: hidden; /* 角丸のため */
+  overflow-x: auto;
 }
 
 .settlement-table th,
@@ -214,12 +216,14 @@ input {
 /* 入力表スタイル */
 .input-table {
   width: 100%;
+  min-width: 400px;
+  table-layout: fixed;
   border-collapse: collapse;
   background: var(--card-bg);
   border-radius: var(--radius);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
-  overflow: hidden;
+  overflow-x: auto;
 }
 
 .input-table th,
@@ -260,12 +264,14 @@ input {
 /* 仕訳表スタイル */
 .journal-table {
   width: 100%;
+  min-width: 600px;
+  table-layout: fixed;
   border-collapse: collapse;
   background: var(--card-bg);
   border-radius: var(--radius);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
-  overflow: hidden;
+  overflow-x: auto;
 }
 
 .journal-table th,
@@ -289,12 +295,14 @@ input {
 /* 出力表スタイル */
 .output-table {
   width: 100%;
+  min-width: 400px;
+  table-layout: fixed;
   border-collapse: collapse;
   background: var(--card-bg);
   border-radius: var(--radius);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
-  overflow: hidden;
+  overflow-x: auto;
 }
 
 .output-table th,
@@ -341,4 +349,19 @@ input {
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+/* レスポンシブ */
+@media (max-width: 600px) {
+  .container {
+    padding: 10px;
+  }
+
+  /* 入金仕訳テーブルの科目列を非表示（金額のみ） */
+  .journal-table th:nth-child(1),
+  .journal-table th:nth-child(3),
+  .journal-table td:nth-child(1),
+  .journal-table td:nth-child(3) {
+    display: none;
+  }
 }
