@@ -40,7 +40,7 @@ const resetButton = document.getElementById("resetButton");
   });
 });
 
-// 発火条件：仮払金 > 0 かつ 清算 > 0
+// 発火条件:仮払金 > 0 かつ 清算 > 0
 const trigger = () => {
   const karibarai = parseIntSafe(karibaraiInput.value);
   const seisan = parseIntSafe(seisanInput.value);
@@ -82,6 +82,19 @@ window.addEventListener("load", () => {
   if (savedTesuryo) tesuryoInput.value = savedTesuryo;
   const savedRounding = localStorage.getItem("taxRounding");
   if (savedRounding) taxRoundingSelect.value = savedRounding;
+
+  // ダークモード設定の読み込み
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme) {
+    document.body.setAttribute("data-theme", savedTheme);
+    themeToggle.textContent = savedTheme === "dark" ? "🌙" : "☀️";
+  } else {
+    // OSの設定を反映
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const theme = prefersDark ? "dark" : "light";
+    document.body.setAttribute("data-theme", theme);
+    themeToggle.textContent = theme === "dark" ? "🌙" : "☀️";
+  }
 });
 
 // 設定保存
@@ -174,35 +187,6 @@ resetImportTaxButton.addEventListener("click", () => {
   outputLocalTax.textContent = "0";
 });
 
-
-
-// 輸入消費税計算
-function calculateImportTax() {
-  const paidTax = parseIntSafe(paidTaxInput.value);
-  if (paidTax <= 0) return;
-
-  const A = (paidTax + 100) / 0.1;
-  const B = Math.floor(A / 1000) * 1000;
-  const C = B * 0.078;
-  const importTax = Math.floor(C / 100) * 100;
-  const D = importTax * (22 / 78);
-  const localTax = Math.floor(D / 100) * 100;
-
-  outputPaidTax.textContent = formatNumber(paidTax);
-  outputImportTax.textContent = formatNumber(importTax);
-  outputLocalTax.textContent = formatNumber(localTax);
-}
-
-// イベントリスナー
-resetImportTaxButton.addEventListener("click", () => {
-  paidTaxInput.value = "";
-  outputPaidTax.textContent = "0";
-  outputImportTax.textContent = "0";
-  outputLocalTax.textContent = "0";
-});
-
-calculateImportTaxButton.addEventListener("click", calculateImportTax);
-
 calculateImportTaxButton.addEventListener("click", calculateImportTax);
 
 // ナビゲーション機能
@@ -219,6 +203,9 @@ navButtons.forEach(btn => {
     btn.classList.add("active");
     const sectionId = btn.getAttribute("data-section");
     document.getElementById(sectionId).classList.add("active");
+
+    // セクション切り替え時にトップへスクロール
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 });
 
@@ -228,11 +215,31 @@ const body = document.body;
 
 themeToggle.addEventListener("click", () => {
   const currentTheme = body.getAttribute("data-theme");
-  if (currentTheme === "dark") {
-    body.setAttribute("data-theme", "light");
-    themeToggle.textContent = "☀️";
+  const newTheme = currentTheme === "dark" ? "light" : "dark";
+  
+  body.setAttribute("data-theme", newTheme);
+  themeToggle.textContent = newTheme === "dark" ? "🌙" : "☀️";
+  
+  // テーマ設定を保存
+  localStorage.setItem("theme", newTheme);
+});
+
+// トップスクロールボタン機能
+const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+// スクロール位置を監視
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 200) {
+    scrollTopBtn.classList.add("visible");
   } else {
-    body.setAttribute("data-theme", "dark");
-    themeToggle.textContent = "🌙";
+    scrollTopBtn.classList.remove("visible");
   }
+});
+
+// トップへスクロール
+scrollTopBtn.addEventListener("click", () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 });

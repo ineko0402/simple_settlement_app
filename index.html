@@ -24,50 +24,50 @@
     <main id="settlement" class="container section active">
       <div class="card">
         <table class="settlement-table">
-        <tr>
-          <th class="table-header">項目</th>
-          <th class="table-header">入力</th>
-        </tr>
-        <tr>
-          <td>仮払金</td>
-          <td>
-            <input
-              id="karibarai"
-              class="input"
-              type="text"
-              inputmode="numeric"
-              placeholder="10000"
-            />
-          </td>
-        </tr>
-        <tr>
-          <td>清算</td>
-          <td>
-            <input
-              id="seisan"
-              class="input"
-              type="text"
-              inputmode="numeric"
-              placeholder="12345"
-            />
-          </td>
-        </tr>
-        <tr>
-          <td>おつり</td>
-          <td>
-            <input
-              id="otsuri"
-              class="input"
-              type="text"
-              inputmode="numeric"
-              placeholder="0"
-            />
-          </td>
-        </tr>
-        <tr>
-          <td>結果</td>
-          <td class="number" id="resultOutput">0</td>
-        </tr>
+        <thead>
+          <tr>
+            <th class="table-header">項目</th>
+            <th class="table-header">入力</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="仮払金">
+              <input
+                id="karibarai"
+                class="input"
+                type="text"
+                inputmode="numeric"
+                placeholder="10000"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td data-label="清算">
+              <input
+                id="seisan"
+                class="input"
+                type="text"
+                inputmode="numeric"
+                placeholder="12345"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td data-label="おつり">
+              <input
+                id="otsuri"
+                class="input"
+                type="text"
+                inputmode="numeric"
+                placeholder="0"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td data-label="結果" class="number" id="resultOutput">0</td>
+          </tr>
+        </tbody>
       </table>
       </div>
 
@@ -77,136 +77,156 @@
     </main>
 
     <main id="nyukin" class="container section">
-      <h2>入金仕訳</h2>
       <div class="card">
+        <h2>入金仕訳</h2>
 
-      <table class="input-table">
-        <tr>
-          <th class="table-header">入力項目</th>
-          <th class="table-header">金額</th>
-        </tr>
-        <tr>
-          <td>入金額</td>
-          <td>
-            <input
-              id="nyukinAmount"
-              class="input"
-              type="text"
-              inputmode="numeric"
-              placeholder="5000"
-            />
-          </td>
-        </tr>
-        <tr>
-          <td>手数料</td>
-          <td>
-            <input
-              id="tesuryo"
-              class="input"
-              type="text"
-              inputmode="numeric"
-              placeholder="440"
-            />
-          </td>
-        </tr>
-        <tr>
-          <td>消費税の端数処理</td>
-          <td>
-            <select id="taxRounding">
-              <option value="floor">切り捨て</option>
-              <option value="round">四捨五入</option>
-            </select>
-          </td>
-        </tr>
-      </table>
+        <table class="input-table">
+          <thead>
+            <tr>
+              <th class="table-header">入力項目</th>
+              <th class="table-header">金額</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="入金額">
+                <input
+                  id="nyukinAmount"
+                  class="input"
+                  type="text"
+                  inputmode="numeric"
+                  placeholder="5000"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td data-label="手数料">
+                <input
+                  id="tesuryo"
+                  class="input"
+                  type="text"
+                  inputmode="numeric"
+                  placeholder="440"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td data-label="消費税の端数処理">
+                <select id="taxRounding">
+                  <option value="floor">切り捨て</option>
+                  <option value="round">四捨五入</option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-      <div class="button-row">
-        <button id="resetNyukinButton" class="btn-secondary"><span>🔄</span> リセット</button>
-        <button id="calculateNyukinButton" class="btn-primary"><span>⚡</span> 計算</button>
-      </div>
+        <div class="button-row">
+          <button id="resetNyukinButton" class="btn-secondary"><span>🔄</span> リセット</button>
+          <button id="calculateNyukinButton" class="btn-primary"><span>⚡</span> 計算</button>
+        </div>
 
-      <table class="journal-table">
-        <tr>
-          <th class="table-header">借方科目</th>
-          <th class="table-header">借方金額</th>
-          <th class="table-header">貸方科目</th>
-          <th class="table-header">貸方金額</th>
-        </tr>
-        <tr>
-          <td>預金</td>
-          <td class="number" id="debitYokin">0</td>
-          <td>収入</td>
-          <td class="number" id="creditSyunyu">0</td>
-        </tr>
-        <tr>
-          <td>手数料</td>
-          <td class="number" id="debitTesuryo">0</td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>仮払消費税</td>
-          <td class="number" id="debitKariharaiTax">0</td>
-          <td>仮受消費税</td>
-          <td class="number" id="creditKariukeTax">0</td>
-        </tr>
-        <tr>
-          <td>借方合計</td>
-          <td class="number" id="debitTotal">0</td>
-          <td>貸方合計</td>
-          <td class="number" id="creditTotal">0</td>
-        </tr>
-      </table>
+        <table class="journal-table">
+          <thead>
+            <tr>
+              <th class="table-header">借方科目</th>
+              <th class="table-header">借方金額</th>
+              <th class="table-header">貸方科目</th>
+              <th class="table-header">貸方金額</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="預金（借方）">
+                <span class="number" id="debitYokin">0</span>
+              </td>
+              <td data-label="手数料（借方）">
+                <span class="number" id="debitTesuryo">0</span>
+              </td>
+              <td data-label="収入（貸方）">
+                <span class="number" id="creditSyunyu">0</span>
+              </td>
+              <td data-label="仮受消費税（貸方）">
+                <span class="number" id="creditKariukeTax">0</span>
+              </td>
+            </tr>
+            <tr>
+              <td data-label="仮払消費税（借方）">
+                <span class="number" id="debitKariharaiTax">0</span>
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td data-label="借方合計" class="number" id="debitTotal">0</td>
+              <td></td>
+              <td data-label="貸方合計" class="number" id="creditTotal">0</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </main>
+
     <main id="import" class="container section">
-      <h2>輸入消費税仕訳</h2>
       <div class="card">
+        <h2>輸入消費税仕訳</h2>
 
-      <table class="input-table">
-        <tr>
-          <th class="table-header">入力項目</th>
-          <th class="table-header">金額</th>
-        </tr>
-        <tr>
-          <td>支払消費税</td>
-          <td>
-            <input
-              id="paidTax"
-              class="input"
-              type="text"
-              inputmode="numeric"
-              placeholder="10000"
-            />
-          </td>
-        </tr>
-      </table>
+        <table class="input-table">
+          <thead>
+            <tr>
+              <th class="table-header">入力項目</th>
+              <th class="table-header">金額</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="支払消費税">
+                <input
+                  id="paidTax"
+                  class="input"
+                  type="text"
+                  inputmode="numeric"
+                  placeholder="10000"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-      <div class="button-row">
-        <button id="resetImportTaxButton" class="btn-secondary"><span>🔄</span> リセット</button>
-        <button id="calculateImportTaxButton" class="btn-primary"><span>⚡</span> 計算</button>
-      </div>
+        <div class="button-row">
+          <button id="resetImportTaxButton" class="btn-secondary"><span>🔄</span> リセット</button>
+          <button id="calculateImportTaxButton" class="btn-primary"><span>⚡</span> 計算</button>
+        </div>
 
-      <table class="output-table">
-        <tr>
-          <th class="table-header">項目名</th>
-          <th class="table-header">金額</th>
-        </tr>
-        <tr>
-          <td>支払消費税</td>
-          <td class="number" id="outputPaidTax">0</td>
-        </tr>
-        <tr>
-          <td>輸入消費税</td>
-          <td class="number" id="outputImportTax">0</td>
-        </tr>
-        <tr>
-          <td>地方消費税</td>
-          <td class="number" id="outputLocalTax">0</td>
-        </tr>
-      </table>
+        <table class="output-table">
+          <thead>
+            <tr>
+              <th class="table-header">項目名</th>
+              <th class="table-header">金額</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="支払消費税" class="number" id="outputPaidTax">0</td>
+            </tr>
+            <tr>
+              <td data-label="輸入消費税" class="number" id="outputImportTax">0</td>
+            </tr>
+            <tr>
+              <td data-label="地方消費税" class="number" id="outputLocalTax">0</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </main>
+
+    <!-- トップスクロールボタン -->
+    <button id="scrollTopBtn" class="scroll-top-btn" aria-label="ページトップへ戻る">
+      ↑
+    </button>
+
     <script src="script.js"></script>
   </body>
 </html>

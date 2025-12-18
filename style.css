@@ -12,7 +12,6 @@
   --radius: 12px;
 }
 
-
 [data-theme="dark"] {
   --bg: #121212;
   --card-bg: #1e1e1e;
@@ -22,6 +21,12 @@
   --button-secondary-hover: #444;
   --button-primary-hover: #1e7e34;
   --stripe-bg: #2a2a2a;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 body {
@@ -51,16 +56,24 @@ body {
 .nav {
   display: flex;
   justify-content: center;
+  gap: 8px;
   margin: 16px 0;
+  flex-wrap: wrap;
 }
 
 .nav-btn {
-  padding: 8px 16px;
-  margin: 0 4px;
+  padding: 12px 20px;
   border: 1px solid #ccc;
   background: white;
   cursor: pointer;
   border-radius: 6px;
+  font-size: 16px;
+  min-height: 44px;
+  transition: all 0.2s ease;
+}
+
+.nav-btn:active {
+  transform: scale(0.98);
 }
 
 .nav-btn.active {
@@ -73,6 +86,51 @@ body {
   background: transparent;
   border: 1px solid var(--border);
   font-size: 1.2rem;
+  padding: 10px 16px;
+  cursor: pointer;
+  border-radius: 6px;
+  min-height: 44px;
+  transition: all 0.2s ease;
+}
+
+.theme-btn:active {
+  transform: scale(0.98);
+}
+
+/* トップスクロールボタン */
+.scroll-top-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 56px;
+  height: 56px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-top-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.scroll-top-btn:hover {
+  transform: scale(1.1);
+}
+
+.scroll-top-btn:active {
+  transform: scale(0.95);
 }
 
 /* コンテナの調整 */
@@ -110,16 +168,20 @@ body {
 /* 入力欄 */
 input[type="number"],
 input[type="text"],
-input {
-  width: 100%; /* 親要素に合わせる */
-  max-width: 100%; /* はみ出し防止 */
-  padding: 8px;
+input,
+select {
+  width: 100%;
+  max-width: 100%;
+  padding: 12px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 6px;
+  min-height: 48px;
 }
 
-.input:focus {
+.input:focus,
+input:focus,
+select:focus {
   border-color: var(--accent);
   outline: 2px solid var(--accent);
   outline-offset: 2px;
@@ -128,28 +190,35 @@ input {
 .button-row {
   display: flex;
   justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
 }
 
 .btn {
   padding: 12px 20px;
-  font-size: 0.95rem;
+  font-size: 16px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
   min-height: 48px;
 }
 
+.btn:active {
+  transform: scale(0.98);
+}
+
 .btn-secondary {
   background: var(--button-secondary-bg);
+  color: var(--text);
 }
 
 .btn-secondary:hover {
   background: var(--button-secondary-hover);
-  transform: scale(1.02);
 }
 
 .btn-primary {
@@ -159,7 +228,6 @@ input {
 
 .btn-primary:hover {
   background: var(--button-primary-hover);
-  transform: scale(1.02);
 }
 
 /* 結果 1つ表示 */
@@ -172,57 +240,65 @@ input {
 }
 
 /* 表スタイル */
-.settlement-table {
+.settlement-table,
+.input-table,
+.journal-table,
+.output-table {
   width: 100%;
-  min-width: 600px;
-  table-layout: fixed;
   border-collapse: collapse;
   background: var(--card-bg);
   border-radius: var(--radius);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
-  /* overflow-x: auto; 削除 */
 }
 
 .settlement-table th,
-.settlement-table td {
+.settlement-table td,
+.input-table th,
+.input-table td,
+.journal-table th,
+.journal-table td,
+.output-table th,
+.output-table td {
   padding: 12px;
   text-align: left;
   border-bottom: 1px solid var(--border);
 }
 
-.settlement-table .table-header {
+.table-header {
   background: var(--bg);
   font-weight: 600;
   text-align: center;
 }
 
-.settlement-table .number {
+.number {
   text-align: right;
   font-weight: bold;
   font-size: 1.1rem;
 }
 
-.settlement-table tr:nth-child(even) {
+.settlement-table tr:nth-child(even),
+.input-table tr:nth-child(even),
+.journal-table tr:nth-child(even),
+.output-table tr:nth-child(even) {
   background: var(--stripe-bg);
 }
 
-.settlement-table tr:hover {
+.settlement-table tr:hover,
+.input-table tr:hover,
+.journal-table tr:hover,
+.output-table tr:hover {
   background: rgba(76, 175, 80, 0.1);
 }
 
-.settlement-table .input {
+.settlement-table .input,
+.input-table .input {
   width: 100%;
   padding: 8px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 6px;
-}
-
-.settlement-table .input:focus {
-  border-color: var(--accent);
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
+  min-height: 48px;
 }
 
 #resultOutput {
@@ -231,154 +307,21 @@ input {
   color: var(--accent);
 }
 
-/* 入力表スタイル */
-.input-table {
-  width: 100%;
-  min-width: 400px;
-  table-layout: fixed;
-  border-collapse: collapse;
-  background: var(--card-bg);
-  border-radius: var(--radius);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-}
-
-.input-table th,
-.input-table td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid var(--border);
-}
-
-.input-table .table-header {
-  background: var(--bg);
-  font-weight: 600;
-  text-align: center;
-}
-
-.input-table tr:nth-child(even) {
-  background: var(--stripe-bg);
-}
-
-.input-table tr:hover {
-  background: rgba(76, 175, 80, 0.1);
-}
-
-.input-table .input {
-  width: 100%;
-  padding: 8px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
-
-.input-table .input:focus {
-  border-color: var(--accent);
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-.input-table select {
-  width: 100%;
-  padding: 8px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
-
-/* 仕訳表スタイル */
-.journal-table {
-  width: 100%;
-  min-width: 600px;
-  table-layout: fixed;
-  border-collapse: collapse;
-  background: var(--card-bg);
-  border-radius: var(--radius);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-}
-
-.journal-table th,
-.journal-table td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid var(--border);
-}
-
-.journal-table .table-header {
-  background: var(--bg);
-  font-weight: 600;
-  text-align: center;
-}
-
-.journal-table .number {
-  text-align: right;
-  font-weight: bold;
-  font-size: 1.1rem;
-}
-
-.journal-table tr:nth-child(even) {
-  background: var(--stripe-bg);
-}
-
-.journal-table tr:hover {
-  background: rgba(76, 175, 80, 0.1);
-}
-
-/* 出力表スタイル */
-.output-table {
-  width: 100%;
-  min-width: 400px;
-  table-layout: fixed;
-  border-collapse: collapse;
-  background: var(--card-bg);
-  border-radius: var(--radius);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-}
-
-.output-table th,
-.output-table td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid var(--border);
-}
-
-.output-table .table-header {
-  background: var(--bg);
-  font-weight: 600;
-  text-align: center;
-}
-
-.output-table .number {
-  text-align: right;
-  font-weight: bold;
-  font-size: 1.1rem;
-}
-
-.output-table tr:nth-child(even) {
-  background: var(--stripe-bg);
-}
-
-.output-table tr:hover {
-  background: rgba(76, 175, 80, 0.1);
-}
 .field-row {
   display: flex;
   gap: 8px;
   width: 100%;
 }
 
-/* ラベル領域を固定幅にする */
 .field-row label {
-  width: 80px; /* 適宜調整 */
+  width: 80px;
   flex-shrink: 0;
 }
 
-/* 入力欄の列は残りを全部使う */
 .field-row .field-input {
   flex: 1;
 }
+
 .section {
   display: none;
   opacity: 0;
@@ -389,38 +332,187 @@ input {
   display: block;
   opacity: 1;
 }
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
 
-/* レスポンシブ */
-@media (max-width: 600px) {
+/* レスポンシブ（モバイル: 480px以下） */
+@media (max-width: 480px) {
   .container {
-    padding: 10px;
+    padding: 12px;
     margin: 0;
   }
 
+  .card {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
   .header {
-    margin: 10px 0;
-    padding: 5px 0;
+    margin: 12px 0 8px;
+    padding: 8px 0;
   }
 
   .title {
     font-size: 1.2rem;
   }
 
-  /* 項目名を小さく */
-  .table-header {
-    font-size: 0.8rem;
+  .nav {
+    gap: 6px;
+    margin: 12px 0;
   }
 
-  /* 入金仕訳テーブルの科目列を非表示（金額のみ） */
-  .journal-table th:nth-child(1),
-  .journal-table th:nth-child(3),
-  .journal-table td:nth-child(1),
-  .journal-table td:nth-child(3) {
+  .nav-btn {
+    flex: 1;
+    padding: 10px 12px;
+    font-size: 14px;
+    min-width: 70px;
+  }
+
+  .button-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  /* テーブルをカード型に変換 */
+  .settlement-table,
+  .input-table,
+  .journal-table,
+  .output-table {
+    display: block;
+    box-shadow: none;
+  }
+
+  .settlement-table thead,
+  .input-table thead,
+  .journal-table thead,
+  .output-table thead {
     display: none;
+  }
+
+  .settlement-table tbody,
+  .settlement-table tr,
+  .input-table tbody,
+  .input-table tr,
+  .journal-table tbody,
+  .journal-table tr,
+  .output-table tbody,
+  .output-table tr {
+    display: block;
+  }
+
+  .settlement-table tr,
+  .input-table tr,
+  .journal-table tr,
+  .output-table tr {
+    margin-bottom: 12px;
+    background: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 12px;
+    border-bottom: none;
+  }
+
+  .settlement-table tr:hover,
+  .input-table tr:hover,
+  .journal-table tr:hover,
+  .output-table tr:hover {
+    background: var(--card-bg);
+  }
+
+  .settlement-table td,
+  .input-table td,
+  .output-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border: none;
+  }
+
+  .settlement-table td:before,
+  .input-table td:before,
+  .output-table td:before {
+    content: attr(data-label);
+    font-weight: 600;
+    margin-right: 12px;
+  }
+
+  /* 入金仕訳テーブル（journal-table）の特別処理 */
+  .journal-table tr {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .journal-table td {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8px;
+    border: none;
+  }
+
+  .journal-table td:before {
+    content: attr(data-label);
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text);
+    opacity: 0.7;
+    margin-bottom: 4px;
+  }
+
+  .journal-table td:empty {
+    display: none;
+  }
+
+  /* 合計行を全幅表示 */
+  .journal-table tr:last-child {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--stripe-bg);
+    padding: 12px;
+    margin-top: 8px;
+  }
+
+  .number {
+    font-size: 1rem;
+    text-align: left;
+  }
+
+  #resultOutput {
+    font-size: 1.2rem;
+  }
+
+  /* 入力フィールドをカード内で全幅に */
+  .settlement-table .input,
+  .input-table .input,
+  .input-table select {
+    width: 100%;
+    margin-top: 4px;
+  }
+
+  .settlement-table td,
+  .input-table td {
+    display: block;
+    padding: 8px 0;
+  }
+
+  .settlement-table td:before,
+  .input-table td:before {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 4px;
+    margin-right: 0;
+  }
+
+  /* スクロールボタンをモバイルで少し小さく */
+  .scroll-top-btn {
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+    bottom: 16px;
+    right: 16px;
   }
 }
