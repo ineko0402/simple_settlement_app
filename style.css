@@ -105,7 +105,48 @@ input {
   padding: 12px 0;
 }
 
-/* 行コンテナ（ラベル+入力） */
+/* 表スタイル */
+.settlement-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+  overflow: hidden; /* 角丸のため */
+}
+
+.settlement-table th,
+.settlement-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.settlement-table th {
+  background: var(--bg);
+  font-weight: 600;
+}
+
+.settlement-table .input {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.settlement-table .input:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+}
+
+#resultOutput {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--accent);
+}
 .field-row {
   display: flex;
   gap: 8px;

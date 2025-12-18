@@ -12,54 +12,56 @@
     </header>
 
     <main class="container">
-      <!-- 入力カード -->
-      <section class="card">
-        <h2 class="card-title">入力</h2>
+      <table class="settlement-table">
+        <tr>
+          <th>項目</th>
+          <th>入力</th>
+        </tr>
+        <tr>
+          <td>仮払金</td>
+          <td>
+            <input
+              id="karibarai"
+              class="input"
+              type="text"
+              inputmode="numeric"
+              placeholder="10000"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>清算</td>
+          <td>
+            <input
+              id="seisan"
+              class="input"
+              type="text"
+              inputmode="numeric"
+              placeholder="12345"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>おつり</td>
+          <td>
+            <input
+              id="otsuri"
+              class="input"
+              type="text"
+              inputmode="numeric"
+              placeholder="0"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>結果</td>
+          <td id="resultOutput">0</td>
+        </tr>
+      </table>
 
-        <div class="input-group">
-          <label for="karibarai">仮払金</label>
-          <input
-            id="karibarai"
-            class="input"
-            type="text"
-            inputmode="numeric"
-            placeholder="10000"
-          />
-        </div>
-
-        <div class="input-group">
-          <label for="seisan">清算</label>
-          <input
-            id="seisan"
-            class="input"
-            type="text"
-            inputmode="numeric"
-            placeholder="12345"
-          />
-        </div>
-
-        <div class="input-group">
-          <label for="otsuri">おつり（任意変更可）</label>
-          <input
-            id="otsuri"
-            class="input"
-            type="text"
-            inputmode="numeric"
-            placeholder="0"
-          />
-        </div>
-
-        <div class="button-row">
-          <button id="resetButton" class="btn secondary">リセット</button>
-        </div>
-      </section>
-
-      <!-- 結果カード：1つだけ -->
-      <section class="card">
-        <h2 class="card-title">結果</h2>
-
-        <div class="result-single" id="resultOutput">0</div>
-      </section>
+      <div class="button-row">
+        <button id="resetButton" class="btn secondary">リセット</button>
+      </div>
     </main>
 
     <script src="script.js"></script>
