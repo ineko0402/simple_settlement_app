@@ -203,6 +203,8 @@ resetImportTaxButton.addEventListener("click", () => {
 
 calculateImportTaxButton.addEventListener("click", calculateImportTax);
 
+calculateImportTaxButton.addEventListener("click", calculateImportTax);
+
 // ナビゲーション機能
 const navButtons = document.querySelectorAll(".nav-btn");
 const sections = document.querySelectorAll(".section");
@@ -218,4 +220,19 @@ navButtons.forEach(btn => {
     const sectionId = btn.getAttribute("data-section");
     document.getElementById(sectionId).classList.add("active");
   });
+});
+
+// ダークモード機能
+const themeToggle = document.getElementById("themeToggle");
+const body = document.body;
+
+themeToggle.addEventListener("click", () => {
+  const currentTheme = body.getAttribute("data-theme");
+  if (currentTheme === "light") {
+    body.setAttribute("data-theme", "dark");
+    themeToggle.textContent = "☀️";
+  } else {
+    body.setAttribute("data-theme", "light");
+    themeToggle.textContent = "🌙";
+  }
 });

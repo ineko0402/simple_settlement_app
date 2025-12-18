@@ -3,7 +3,22 @@
   --card-bg: #ffffff;
   --accent: #28a745;
   --text: #333;
+  --border: #eee;
+  --button-secondary-bg: #e0e0e0;
+  --button-secondary-hover: #d5d5d5;
+  --button-primary-bg: var(--accent);
+  --button-primary-hover: #3a7bd5;
   --radius: 16px;
+}
+
+[data-theme="dark"] {
+  --bg: #121212;
+  --card-bg: #1e1e1e;
+  --text: #e0e0e0;
+  --border: #333;
+  --button-secondary-bg: #333;
+  --button-secondary-hover: #444;
+  --button-primary-hover: #1e7e34;
 }
 
 body {
@@ -43,6 +58,12 @@ body {
   background: var(--accent);
   color: white;
   border-color: var(--accent);
+}
+
+.theme-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  font-size: 1.2rem;
 }
 
 /* コンテナの調整 */
@@ -109,21 +130,21 @@ input {
   transition: 0.2s;
 }
 
-.btn.secondary {
-  background: #e0e0e0;
+.btn-secondary {
+  background: var(--button-secondary-bg);
 }
 
-.btn.secondary:hover {
-  background: #d5d5d5;
+.btn-secondary:hover {
+  background: var(--button-secondary-hover);
 }
 
-.btn.primary {
-  background: var(--accent);
+.btn-primary {
+  background: var(--button-primary-bg);
   color: white;
 }
 
-.btn.primary:hover {
-  background: #3a7bd5;
+.btn-primary:hover {
+  background: var(--button-primary-hover);
 }
 
 /* 結果 1つ表示 */
@@ -150,13 +171,18 @@ input {
 .settlement-table td {
   padding: 12px;
   text-align: left;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border);
 }
 
-.settlement-table th {
+.settlement-table .table-header {
   background: var(--bg);
   font-weight: 600;
   text-align: center;
+}
+
+.settlement-table .number {
+  text-align: right;
+  font-weight: 600;
 }
 
 .settlement-table .input {
@@ -200,10 +226,10 @@ input {
 .input-table td {
   padding: 12px;
   text-align: left;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border);
 }
 
-.input-table th {
+.input-table .table-header {
   background: var(--bg);
   font-weight: 600;
   text-align: center;
@@ -246,17 +272,16 @@ input {
 .journal-table td {
   padding: 12px;
   text-align: left;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border);
 }
 
-.journal-table th {
+.journal-table .table-header {
   background: var(--bg);
   font-weight: 600;
   text-align: center;
 }
 
-.journal-table td:nth-child(2),
-.journal-table td:nth-child(4) {
+.journal-table .number {
   text-align: right;
   font-weight: 600;
 }
@@ -276,16 +301,16 @@ input {
 .output-table td {
   padding: 12px;
   text-align: left;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border);
 }
 
-.output-table th {
+.output-table .table-header {
   background: var(--bg);
   font-weight: 600;
   text-align: center;
 }
 
-.output-table td:nth-child(2) {
+.output-table .number {
   text-align: right;
   font-weight: 600;
 }
