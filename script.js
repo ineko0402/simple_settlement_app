@@ -174,4 +174,48 @@ resetImportTaxButton.addEventListener("click", () => {
   outputLocalTax.textContent = "0";
 });
 
+
+
+// 輸入消費税計算
+function calculateImportTax() {
+  const paidTax = parseIntSafe(paidTaxInput.value);
+  if (paidTax <= 0) return;
+
+  const A = (paidTax + 100) / 0.1;
+  const B = Math.floor(A / 1000) * 1000;
+  const C = B * 0.078;
+  const importTax = Math.floor(C / 100) * 100;
+  const D = importTax * (22 / 78);
+  const localTax = Math.floor(D / 100) * 100;
+
+  outputPaidTax.textContent = formatNumber(paidTax);
+  outputImportTax.textContent = formatNumber(importTax);
+  outputLocalTax.textContent = formatNumber(localTax);
+}
+
+// イベントリスナー
+resetImportTaxButton.addEventListener("click", () => {
+  paidTaxInput.value = "";
+  outputPaidTax.textContent = "0";
+  outputImportTax.textContent = "0";
+  outputLocalTax.textContent = "0";
+});
+
 calculateImportTaxButton.addEventListener("click", calculateImportTax);
+
+// ナビゲーション機能
+const navButtons = document.querySelectorAll(".nav-btn");
+const sections = document.querySelectorAll(".section");
+
+navButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    // アクティブクラスをリセット
+    navButtons.forEach(b => b.classList.remove("active"));
+    sections.forEach(s => s.classList.remove("active"));
+    
+    // クリックされたボタンをアクティブに
+    btn.classList.add("active");
+    const sectionId = btn.getAttribute("data-section");
+    document.getElementById(sectionId).classList.add("active");
+  });
+});

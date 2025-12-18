@@ -3,16 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>清算仕訳ツール</title>
+    <title>会計仕訳ツール</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect x='2' y='3' width='12' height='10' fill='none' stroke='%23333' stroke-width='1' rx='1'/><line x1='4' y1='6' x2='12' y2='6' stroke='%23333' stroke-width='1'/><line x1='4' y1='8' x2='12' y2='8' stroke='%23333' stroke-width='1'/><line x1='4' y1='10' x2='12' y2='10' stroke='%23333' stroke-width='1'/><line x1='6' y1='2' x2='6' y2='3' stroke='%23333' stroke-width='1'/></svg>" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <header class="header">
-      <h1 class="title">清算仕訳ツール</h1>
+      <h1 class="title">会計仕訳ツール</h1>
+      <nav class="nav">
+        <button class="nav-btn active" data-section="settlement">清算</button>
+        <button class="nav-btn" data-section="nyukin">入金</button>
+        <button class="nav-btn" data-section="import">輸入</button>
+      </nav>
     </header>
 
-    <main class="container">
-      <table class="settlement-table">
+    <main id="settlement" class="container section active">
+      <div class="card">
+        <table class="settlement-table">
         <tr>
           <th>項目</th>
           <th>入力</th>
@@ -58,14 +65,16 @@
           <td id="resultOutput">0</td>
         </tr>
       </table>
+      </div>
 
       <div class="button-row">
         <button id="resetButton" class="btn secondary">リセット</button>
       </div>
     </main>
 
-    <main class="container">
+    <main id="nyukin" class="container section">
       <h2>入金仕訳</h2>
+      <div class="card">
 
       <table class="input-table">
         <tr>
@@ -144,9 +153,11 @@
           <td id="creditTotal">0</td>
         </tr>
       </table>
+      </div>
     </main>
-    <main class="container">
+    <main id="import" class="container section">
       <h2>輸入消費税仕訳</h2>
+      <div class="card">
 
       <table class="input-table">
         <tr>
@@ -190,6 +201,7 @@
           <td id="outputLocalTax">0</td>
         </tr>
       </table>
+      </div>
     </main>
     <script src="script.js"></script>
   </body>

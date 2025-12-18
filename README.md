@@ -1,1 +1,1 @@
-# simple_settlement_app
+# 会計仕訳ツール

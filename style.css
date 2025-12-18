@@ -1,7 +1,7 @@
 :root {
   --bg: #f6f6f8;
   --card-bg: #ffffff;
-  --accent: #4a90e2;
+  --accent: #28a745;
   --text: #333;
   --radius: 16px;
 }
@@ -22,6 +22,27 @@ body {
 .title {
   font-size: 1.4rem;
   font-weight: 600;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0;
+}
+
+.nav-btn {
+  padding: 8px 16px;
+  margin: 0 4px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.nav-btn.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
 }
 
 /* コンテナの調整 */
@@ -135,6 +156,7 @@ input {
 .settlement-table th {
   background: var(--bg);
   font-weight: 600;
+  text-align: center;
 }
 
 .settlement-table .input {
@@ -184,6 +206,7 @@ input {
 .input-table th {
   background: var(--bg);
   font-weight: 600;
+  text-align: center;
 }
 
 .input-table .input {
@@ -229,6 +252,7 @@ input {
 .journal-table th {
   background: var(--bg);
   font-weight: 600;
+  text-align: center;
 }
 
 .journal-table td:nth-child(2),
@@ -258,6 +282,7 @@ input {
 .output-table th {
   background: var(--bg);
   font-weight: 600;
+  text-align: center;
 }
 
 .output-table td:nth-child(2) {
@@ -280,7 +305,13 @@ input {
 .field-row .field-input {
   flex: 1;
 }
-/* 全体のボックスモデルを統一 */
+.section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
 *,
 *::before,
 *::after {
