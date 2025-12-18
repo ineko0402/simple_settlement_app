@@ -8,16 +8,28 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body data-theme="dark">
     <header class="header">
       <h1 class="title">会計仕訳ツール</h1>
       <nav class="nav">
-        <button class="nav-btn active" data-section="settlement">清算</button>
-        <button class="nav-btn" data-section="nyukin">入金</button>
-        <button class="nav-btn" data-section="import">輸入</button>
-        <button id="themeToggle" class="theme-btn">🌙</button>
+        <button class="nav-btn active" data-section="settlement">
+          <span class="material-symbols-outlined">receipt</span>
+          清算
+        </button>
+        <button class="nav-btn" data-section="nyukin">
+          <span class="material-symbols-outlined">savings</span>
+          入金
+        </button>
+        <button class="nav-btn" data-section="import">
+          <span class="material-symbols-outlined">local_shipping</span>
+          輸入
+        </button>
+        <button id="themeToggle" class="theme-btn">
+          <span class="material-symbols-outlined">dark_mode</span>
+        </button>
       </nav>
     </header>
 
@@ -72,7 +84,10 @@
       </div>
 
       <div class="button-row">
-        <button id="resetButton" class="btn-secondary"><span>🔄</span> リセット</button>
+        <button id="resetButton" class="btn-secondary">
+          <span class="material-symbols-outlined">refresh</span>
+          リセット
+        </button>
       </div>
     </main>
 
@@ -122,8 +137,14 @@
         </table>
 
         <div class="button-row">
-          <button id="resetNyukinButton" class="btn-secondary"><span>🔄</span> リセット</button>
-          <button id="calculateNyukinButton" class="btn-primary"><span>⚡</span> 計算</button>
+          <button id="resetNyukinButton" class="btn-secondary">
+            <span class="material-symbols-outlined">refresh</span>
+            リセット
+          </button>
+          <button id="calculateNyukinButton" class="btn-primary">
+            <span class="material-symbols-outlined">calculate</span>
+            計算
+          </button>
         </div>
 
         <table class="journal-table">
@@ -196,8 +217,14 @@
         </table>
 
         <div class="button-row">
-          <button id="resetImportTaxButton" class="btn-secondary"><span>🔄</span> リセット</button>
-          <button id="calculateImportTaxButton" class="btn-primary"><span>⚡</span> 計算</button>
+          <button id="resetImportTaxButton" class="btn-secondary">
+            <span class="material-symbols-outlined">refresh</span>
+            リセット
+          </button>
+          <button id="calculateImportTaxButton" class="btn-primary">
+            <span class="material-symbols-outlined">calculate</span>
+            計算
+          </button>
         </div>
 
         <table class="output-table">
@@ -224,7 +251,7 @@
 
     <!-- トップスクロールボタン -->
     <button id="scrollTopBtn" class="scroll-top-btn" aria-label="ページトップへ戻る">
-      ↑
+      <span class="material-symbols-outlined">arrow_upward</span>
     </button>
 
     <script src="script.js"></script>

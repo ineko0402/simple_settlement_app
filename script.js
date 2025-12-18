@@ -87,13 +87,13 @@ window.addEventListener("load", () => {
   const savedTheme = localStorage.getItem("theme");
   if (savedTheme) {
     document.body.setAttribute("data-theme", savedTheme);
-    themeToggle.textContent = savedTheme === "dark" ? "🌙" : "☀️";
+    updateThemeIcon(savedTheme);
   } else {
     // OSの設定を反映
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     const theme = prefersDark ? "dark" : "light";
     document.body.setAttribute("data-theme", theme);
-    themeToggle.textContent = theme === "dark" ? "🌙" : "☀️";
+    updateThemeIcon(theme);
   }
 });
 
@@ -213,12 +213,18 @@ navButtons.forEach(btn => {
 const themeToggle = document.getElementById("themeToggle");
 const body = document.body;
 
+// テーマアイコンを更新する関数
+function updateThemeIcon(theme) {
+  const icon = themeToggle.querySelector(".material-symbols-outlined");
+  icon.textContent = theme === "dark" ? "dark_mode" : "light_mode";
+}
+
 themeToggle.addEventListener("click", () => {
   const currentTheme = body.getAttribute("data-theme");
   const newTheme = currentTheme === "dark" ? "light" : "dark";
   
   body.setAttribute("data-theme", newTheme);
-  themeToggle.textContent = newTheme === "dark" ? "🌙" : "☀️";
+  updateThemeIcon(newTheme);
   
   // テーマ設定を保存
   localStorage.setItem("theme", newTheme);

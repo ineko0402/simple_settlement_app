@@ -70,6 +70,13 @@ body {
   font-size: 16px;
   min-height: 44px;
   transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-btn .material-symbols-outlined {
+  font-size: 20px;
 }
 
 .nav-btn:active {
@@ -91,6 +98,13 @@ body {
   border-radius: 6px;
   min-height: 44px;
   transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-btn .material-symbols-outlined {
+  font-size: 24px;
 }
 
 .theme-btn:active {
@@ -108,7 +122,6 @@ body {
   color: white;
   border: none;
   border-radius: 50%;
-  font-size: 24px;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   z-index: 100;
@@ -118,6 +131,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.scroll-top-btn .material-symbols-outlined {
+  font-size: 28px;
 }
 
 .scroll-top-btn.visible {
@@ -206,6 +223,10 @@ select:focus {
   justify-content: center;
   gap: 6px;
   min-height: 48px;
+}
+
+.btn .material-symbols-outlined {
+  font-size: 20px;
 }
 
 .btn:active {
@@ -511,8 +532,11 @@ select:focus {
   .scroll-top-btn {
     width: 48px;
     height: 48px;
-    font-size: 20px;
     bottom: 16px;
     right: 16px;
+  }
+
+  .scroll-top-btn .material-symbols-outlined {
+    font-size: 24px;
   }
 }
