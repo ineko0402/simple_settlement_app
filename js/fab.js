@@ -9,6 +9,7 @@ const resetFab = document.getElementById('resetFab');
 export function initFab() {
   resetFab.addEventListener('click', () => {
     const currentSection = getCurrentSectionId();
+    console.log('FAB clicked, current section:', currentSection); // デバッグ用
     
     if (currentSection === 'settlement') {
       resetSettlement();

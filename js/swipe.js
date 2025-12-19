@@ -1,8 +1,7 @@
-import { navigateToSection, sectionIds } from './navigation.js';
+import { navigateToSection, sectionIds, currentSectionIndex } from './navigation.js';
 
 let touchStartX = 0;
 let touchEndX = 0;
-let currentSectionIndex = 0;
 
 function handleSwipe() {
   const threshold = 50;
@@ -10,13 +9,11 @@ function handleSwipe() {
     // 左スワイプ - 次へ
     const nextIndex = (currentSectionIndex + 1) % sectionIds.length;
     navigateToSection(sectionIds[nextIndex]);
-    currentSectionIndex = nextIndex;
   }
   if (touchEndX > touchStartX + threshold) {
     // 右スワイプ - 前へ
     const prevIndex = (currentSectionIndex - 1 + sectionIds.length) % sectionIds.length;
     navigateToSection(sectionIds[prevIndex]);
-    currentSectionIndex = prevIndex;
   }
 }
 

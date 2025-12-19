@@ -9,6 +9,8 @@ import { initKeyboardSupport } from './keyboard.js';
 
 // 初期化
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('DOM loaded, initializing app...');
+  
   initTheme();
   initNavigation();
   initSwipe();
@@ -20,4 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // 保存済み設定の読み込み
   loadNyukinSettings();
+  
+  console.log('App initialized');
 });

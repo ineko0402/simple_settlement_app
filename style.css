@@ -91,29 +91,33 @@ body {
   position: absolute;
   top: 0;
   left: 0;
+  right: 0;
   width: 100%;
   padding: 16px;
   opacity: 0;
+  visibility: hidden;
   transform: translateX(100%);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  pointer-events: none;
 }
 
 .section.active {
   opacity: 1;
+  visibility: visible;
   transform: translateX(0);
-  pointer-events: auto;
   position: relative;
+  z-index: 1;
 }
 
 .section.slide-out-left {
   transform: translateX(-100%);
   opacity: 0;
+  visibility: hidden;
 }
 
 .section.slide-in-right {
   transform: translateX(100%);
   opacity: 0;
+  visibility: hidden;
 }
 /* カードスタイル */
 .card {
