@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -7,18 +8,26 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#4caf50">
   <title>会計仕訳ツール</title>
-  
+
   <!-- PWA Manifest -->
   <link rel="manifest" href="manifest.json">
-  
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
-  
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+
   <link rel="stylesheet" href="style.css">
+
+  <!-- Icons -->
+  <link rel="icon" href="icon/favicon.ico" sizes="any">
+  <link rel="icon" href="icon/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="icon/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="icon/icon-152x152.png">
 </head>
+
 <body data-theme="dark">
 
   <!-- ヘッダー -->
@@ -31,7 +40,7 @@
 
   <!-- メインコンテンツ -->
   <main class="main-content">
-    
+
     <!-- 清算セクション -->
     <section id="settlement" class="section active">
       <div class="card">
@@ -41,14 +50,14 @@
             <input id="karibarai" class="input" type="text" inputmode="numeric" placeholder="10,000">
           </div>
         </div>
-        
+
         <div class="input-row">
           <label class="input-label">清算</label>
           <div class="input-wrapper">
             <input id="seisan" class="input" type="text" inputmode="numeric" placeholder="8,500">
           </div>
         </div>
-        
+
         <div class="input-row">
           <label class="input-label">おつり</label>
           <div class="input-wrapper">
@@ -72,14 +81,14 @@
     <section id="nyukin" class="section">
       <div class="card">
         <h2 class="card-title">入金仕訳</h2>
-        
+
         <div class="input-row">
           <label class="input-label">入金額</label>
           <div class="input-wrapper">
             <input id="nyukinAmount" class="input" type="text" inputmode="numeric" placeholder="5,000">
           </div>
         </div>
-        
+
         <div class="input-row">
           <label class="input-label">手数料</label>
           <div class="input-wrapper">
@@ -142,7 +151,7 @@
     <section id="import" class="section">
       <div class="card">
         <h2 class="card-title">輸入消費税仕訳</h2>
-        
+
         <div class="input-row">
           <label class="input-label">支払消費税</label>
           <div class="input-wrapper">
@@ -204,4 +213,5 @@
 
   <script type="module" src="js/main.js"></script>
 </body>
+
 </html>
