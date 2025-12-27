@@ -31,7 +31,12 @@ export function initNyukin() {
 
     nyukinResult.style.display = 'block';
     showSnackbar('計算完了');
-    
+
+    // 結果までスクロール
+    setTimeout(() => {
+      nyukinResult.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }, 100);
+
     // 設定保存
     localStorage.setItem('tesuryo', document.getElementById('tesuryo').value);
     localStorage.setItem('taxRounding', rounding);
@@ -47,7 +52,7 @@ export function resetNyukin() {
 export function loadNyukinSettings() {
   const savedTesuryo = localStorage.getItem('tesuryo');
   if (savedTesuryo) document.getElementById('tesuryo').value = savedTesuryo;
-  
+
   const savedRounding = localStorage.getItem('taxRounding');
   if (savedRounding) document.getElementById('taxRounding').value = savedRounding;
 }

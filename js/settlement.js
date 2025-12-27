@@ -16,9 +16,9 @@ export function initSettlement() {
 
     const adjustedSeisan = seisan + otsuri;
     const diff = karibarai - adjustedSeisan;
-    
+
     const resultValue = settlementResult.querySelector('.result-value');
-    
+
     if (diff > 0) {
       resultValue.textContent = `受け取り ${formatNumber(diff)} 円`;
       settlementResult.style.background = 'linear-gradient(135deg, #4caf50, #388e3c)';
@@ -32,6 +32,11 @@ export function initSettlement() {
 
     settlementResult.style.display = 'block';
     showSnackbar('計算完了');
+
+    // 結果までスクロール
+    setTimeout(() => {
+      settlementResult.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }, 100);
   });
 }
 

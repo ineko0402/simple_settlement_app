@@ -96,28 +96,32 @@ body {
   padding: 16px;
   opacity: 0;
   visibility: hidden;
-  transform: translateX(100%);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity;
 }
 
 .section.active {
   opacity: 1;
   visibility: visible;
-  transform: translateX(0);
+  transform: translateX(0) !important;
   position: relative;
   z-index: 1;
 }
 
-.section.slide-out-left {
-  transform: translateX(-100%);
-  opacity: 0;
-  visibility: hidden;
+.section.next {
+  transform: translateX(100%);
+  visibility: visible;
+  opacity: 0.5;
 }
 
-.section.slide-in-right {
-  transform: translateX(100%);
-  opacity: 0;
-  visibility: hidden;
+.section.prev {
+  transform: translateX(-100%);
+  visibility: visible;
+  opacity: 0.5;
+}
+
+.section.switching {
+  transition: none !important;
 }
 /* カードスタイル */
 .card {

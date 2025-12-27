@@ -25,6 +25,11 @@ export function initImportTax() {
 
     importResult.style.display = 'block';
     showSnackbar('計算完了');
+
+    // 結果までスクロール
+    setTimeout(() => {
+      importResult.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }, 100);
   });
 }
 
