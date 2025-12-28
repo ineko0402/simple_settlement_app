@@ -111,18 +111,19 @@ body {
 .section.next {
   transform: translateX(100%);
   visibility: visible;
-  opacity: 0.5;
+  opacity: 1;
 }
 
 .section.prev {
   transform: translateX(-100%);
   visibility: visible;
-  opacity: 0.5;
+  opacity: 1;
 }
 
 .section.switching {
   transition: none !important;
 }
+
 /* カードスタイル */
 .card {
   background: var(--card-bg);
@@ -186,9 +187,19 @@ body {
 }
 
 @keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-4px); }
-  75% { transform: translateX(4px); }
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-4px);
+  }
+
+  75% {
+    transform: translateX(4px);
+  }
 }
 
 /* 結果表示 */
@@ -208,6 +219,7 @@ body {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -303,6 +315,7 @@ body {
   font-weight: 600;
   color: var(--accent);
 }
+
 /* ボトムナビゲーション */
 .bottom-nav {
   position: fixed;
@@ -348,8 +361,15 @@ body {
 }
 
 @keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
 }
 
 .nav-icon {
