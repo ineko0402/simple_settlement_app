@@ -1,4 +1,3 @@
-/root/.profile: line 9: /dev/null: Permission denied
 const CACHE_NAME = 'accounting-app-v2';
 const URLS_TO_CACHE = [
   './',
