@@ -1,24 +1,44 @@
-// sw.js
-const CACHE_NAME = 'accounting-app-v1';
-const urlsToCache = [
-    '/',
-    '/index.html',
-    '/style.css',
-    '/js/main.js',
-    'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap',
-    'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined'
+const CACHE_NAME = 'accounting-app-v2';
+const URLS_TO_CACHE = [
+  './',
+  './index.html',
+  './style.css',
+  './ledger.css',
+  './manifest.json',
+  './js/main.js',
+  './js/theme.js',
+  './js/navigation.js',
+  './js/swipe.js',
+  './js/settlement.js',
+  './js/nyukin.js',
+  './js/import-tax.js',
+  './js/ledger.js',
+  './js/ledger-storage.js',
+  './js/fab.js',
+  './js/keyboard.js',
+  './js/utils.js'
 ];
 
 self.addEventListener('install', event => {
-    event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(cache => cache.addAll(urlsToCache))
-    );
+  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(URLS_TO_CACHE)));
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(cacheNames => Promise.all(
+      cacheNames
+        .filter(cacheName => cacheName !== CACHE_NAME)
+        .map(cacheName => caches.delete(cacheName))
+    ))
+  );
+  self.clients.claim();
 });
 
 self.addEventListener('fetch', event => {
-    event.respondWith(
-        caches.match(event.request)
-            .then(response => response || fetch(event.request))
-    );
+  if (event.request.method !== 'GET') return;
+
+  event.respondWith(
+    caches.match(event.request).then(response => response || fetch(event.request))
+  );
 });

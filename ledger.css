@@ -1,0 +1,118 @@
+/* お小遣い帳 */
+.ledger-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ledger-summary-label {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.ledger-summary-value {
+  color: var(--accent);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.ledger-table-wrap {
+  overflow-x: auto;
+  border-radius: 12px;
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+}
+
+.ledger-header,
+.ledger-row {
+  display: grid;
+  grid-template-columns: minmax(112px, 1.15fr) minmax(92px, 1fr) minmax(74px, 0.8fr) minmax(74px, 0.8fr) 40px;
+  min-width: 430px;
+}
+
+.ledger-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 10px 8px;
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.ledger-row {
+  padding: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.ledger-row:last-child {
+  border-bottom: none;
+}
+
+.ledger-input {
+  width: 100%;
+  min-width: 0;
+  padding: 10px 7px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 16px;
+}
+
+.ledger-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.12);
+}
+
+.ledger-amount {
+  text-align: right;
+}
+
+.ledger-delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--error);
+  cursor: pointer;
+}
+
+.ledger-delete .material-symbols-outlined {
+  font-size: 21px;
+}
+
+.ledger-row-balance {
+  grid-column: 1 / -1;
+  justify-self: end;
+  margin-top: 6px;
+  padding: 4px 8px;
+  border: none;
+  background: transparent;
+  color: var(--accent);
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.ledger-empty {
+  padding: 32px 16px;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.ledger-add {
+  margin-top: 16px;
+}
+
+@media (max-width: 420px) {
+  .ledger-section {
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+}

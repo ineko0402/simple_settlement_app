@@ -9,19 +9,14 @@
   <meta name="theme-color" content="#4caf50">
   <title>会計仕訳ツール</title>
 
-  <!-- PWA Manifest -->
   <link rel="manifest" href="manifest.json">
-
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
-
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="ledger.css">
 
-  <!-- Icons -->
   <link rel="icon" href="icon/favicon.ico" sizes="any">
   <link rel="icon" href="icon/favicon-32x32.png" type="image/png" sizes="32x32">
   <link rel="icon" href="icon/favicon-16x16.png" type="image/png" sizes="16x16">
@@ -29,37 +24,32 @@
 </head>
 
 <body data-theme="dark">
-
-  <!-- ヘッダー -->
   <header class="header">
     <h1 class="header-title">会計仕訳ツール</h1>
-    <button class="theme-toggle" id="themeToggle">
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="テーマを切り替え">
       <span class="material-symbols-outlined">dark_mode</span>
     </button>
   </header>
 
-  <!-- メインコンテンツ -->
   <main class="main-content">
-
-    <!-- 清算セクション -->
     <section id="settlement" class="section active">
       <div class="card">
         <div class="input-row">
-          <label class="input-label">仮払金</label>
+          <label class="input-label" for="karibarai">仮払金</label>
           <div class="input-wrapper">
             <input id="karibarai" class="input" type="text" inputmode="numeric" placeholder="10,000">
           </div>
         </div>
 
         <div class="input-row">
-          <label class="input-label">清算</label>
+          <label class="input-label" for="seisan">清算</label>
           <div class="input-wrapper">
             <input id="seisan" class="input" type="text" inputmode="numeric" placeholder="8,500">
           </div>
         </div>
 
         <div class="input-row">
-          <label class="input-label">おつり</label>
+          <label class="input-label" for="otsuri">おつり</label>
           <div class="input-wrapper">
             <input id="otsuri" class="input" type="text" inputmode="numeric" placeholder="0">
           </div>
@@ -71,33 +61,32 @@
         <div class="result-value">受け取り 1,500 円</div>
       </div>
 
-      <button class="btn btn-primary" id="calculateSettlement">
+      <button class="btn btn-primary" id="calculateSettlement" type="button">
         <span class="material-symbols-outlined">calculate</span>
         計算する
       </button>
     </section>
 
-    <!-- 入金セクション -->
     <section id="nyukin" class="section">
       <div class="card">
         <h2 class="card-title">入金仕訳</h2>
 
         <div class="input-row">
-          <label class="input-label">入金額</label>
+          <label class="input-label" for="nyukinAmount">入金額</label>
           <div class="input-wrapper">
             <input id="nyukinAmount" class="input" type="text" inputmode="numeric" placeholder="5,000">
           </div>
         </div>
 
         <div class="input-row">
-          <label class="input-label">手数料</label>
+          <label class="input-label" for="tesuryo">手数料</label>
           <div class="input-wrapper">
             <input id="tesuryo" class="input" type="text" inputmode="numeric" placeholder="440">
           </div>
         </div>
 
         <div class="input-row">
-          <label class="input-label">端数処理</label>
+          <label class="input-label" for="taxRounding">端数処理</label>
           <div class="input-wrapper">
             <select id="taxRounding" class="input">
               <option value="floor">切り捨て</option>
@@ -107,7 +96,7 @@
         </div>
       </div>
 
-      <button class="btn btn-primary" id="calculateNyukin">
+      <button class="btn btn-primary" id="calculateNyukin" type="button">
         <span class="material-symbols-outlined">calculate</span>
         計算する
       </button>
@@ -116,51 +105,34 @@
         <div class="card">
           <h3 class="card-title">借方</h3>
           <table class="data-table">
-            <tr class="data-row">
-              <td class="data-cell">預金</td>
-              <td class="data-cell" id="debitYokin">0</td>
-            </tr>
-            <tr class="data-row">
-              <td class="data-cell">手数料</td>
-              <td class="data-cell" id="debitTesuryo">0</td>
-            </tr>
-            <tr class="data-row">
-              <td class="data-cell">仮払消費税</td>
-              <td class="data-cell" id="debitKariharaiTax">0</td>
-            </tr>
+            <tr class="data-row"><td class="data-cell">預金</td><td class="data-cell" id="debitYokin">0</td></tr>
+            <tr class="data-row"><td class="data-cell">手数料</td><td class="data-cell" id="debitTesuryo">0</td></tr>
+            <tr class="data-row"><td class="data-cell">仮払消費税</td><td class="data-cell" id="debitKariharaiTax">0</td></tr>
           </table>
         </div>
 
         <div class="card">
           <h3 class="card-title">貸方</h3>
           <table class="data-table">
-            <tr class="data-row">
-              <td class="data-cell">収入</td>
-              <td class="data-cell" id="creditSyunyu">0</td>
-            </tr>
-            <tr class="data-row">
-              <td class="data-cell">仮受消費税</td>
-              <td class="data-cell" id="creditKariukeTax">0</td>
-            </tr>
+            <tr class="data-row"><td class="data-cell">収入</td><td class="data-cell" id="creditSyunyu">0</td></tr>
+            <tr class="data-row"><td class="data-cell">仮受消費税</td><td class="data-cell" id="creditKariukeTax">0</td></tr>
           </table>
         </div>
       </div>
     </section>
 
-    <!-- 輸入セクション -->
     <section id="import" class="section">
       <div class="card">
         <h2 class="card-title">輸入消費税仕訳</h2>
-
         <div class="input-row">
-          <label class="input-label">支払消費税</label>
+          <label class="input-label" for="paidTax">支払消費税</label>
           <div class="input-wrapper">
             <input id="paidTax" class="input" type="text" inputmode="numeric" placeholder="10,000">
           </div>
         </div>
       </div>
 
-      <button class="btn btn-primary" id="calculateImport">
+      <button class="btn btn-primary" id="calculateImport" type="button">
         <span class="material-symbols-outlined">calculate</span>
         計算する
       </button>
@@ -168,49 +140,58 @@
       <div id="importResult" style="display: none; margin-top: 16px;">
         <div class="card">
           <table class="data-table">
-            <tr class="data-row">
-              <td class="data-cell">支払消費税</td>
-              <td class="data-cell" id="outputPaidTax">0</td>
-            </tr>
-            <tr class="data-row">
-              <td class="data-cell">輸入消費税</td>
-              <td class="data-cell" id="outputImportTax">0</td>
-            </tr>
-            <tr class="data-row">
-              <td class="data-cell">地方消費税</td>
-              <td class="data-cell" id="outputLocalTax">0</td>
-            </tr>
+            <tr class="data-row"><td class="data-cell">支払消費税</td><td class="data-cell" id="outputPaidTax">0</td></tr>
+            <tr class="data-row"><td class="data-cell">輸入消費税</td><td class="data-cell" id="outputImportTax">0</td></tr>
+            <tr class="data-row"><td class="data-cell">地方消費税</td><td class="data-cell" id="outputLocalTax">0</td></tr>
           </table>
         </div>
       </div>
     </section>
 
+    <section id="ledger" class="section ledger-section">
+      <div class="card ledger-summary">
+        <div>
+          <div class="ledger-summary-label">現在の残高</div>
+          <div class="ledger-summary-value" id="ledgerBalance">0 円</div>
+        </div>
+        <span class="material-symbols-outlined">account_balance_wallet</span>
+      </div>
+
+      <div class="ledger-table-wrap">
+        <div class="ledger-header" aria-hidden="true">
+          <span>日付</span><span>内容</span><span>入金</span><span>出金</span><span></span>
+        </div>
+        <div id="ledgerBody"></div>
+        <p class="ledger-empty" id="ledgerEmpty">「行を追加」から入力を始めます。</p>
+      </div>
+
+      <button class="btn btn-primary ledger-add" id="addLedgerEntry" type="button">
+        <span class="material-symbols-outlined">add</span>
+        行を追加
+      </button>
+    </section>
   </main>
 
-  <!-- ボトムナビゲーション -->
-  <nav class="bottom-nav">
-    <button class="nav-item active" data-section="settlement">
-      <span class="material-symbols-outlined nav-icon">receipt</span>
-      <span class="nav-label">清算</span>
+  <nav class="bottom-nav" aria-label="メインメニュー">
+    <button class="nav-item active" data-section="settlement" type="button">
+      <span class="material-symbols-outlined nav-icon">receipt</span><span class="nav-label">清算</span>
     </button>
-    <button class="nav-item" data-section="nyukin">
-      <span class="material-symbols-outlined nav-icon">savings</span>
-      <span class="nav-label">入金</span>
+    <button class="nav-item" data-section="nyukin" type="button">
+      <span class="material-symbols-outlined nav-icon">savings</span><span class="nav-label">入金</span>
     </button>
-    <button class="nav-item" data-section="import">
-      <span class="material-symbols-outlined nav-icon">local_shipping</span>
-      <span class="nav-label">輸入</span>
+    <button class="nav-item" data-section="import" type="button">
+      <span class="material-symbols-outlined nav-icon">local_shipping</span><span class="nav-label">輸入</span>
+    </button>
+    <button class="nav-item" data-section="ledger" type="button">
+      <span class="material-symbols-outlined nav-icon">menu_book</span><span class="nav-label">帳簿</span>
     </button>
   </nav>
 
-  <!-- FAB（リセット） -->
-  <button class="fab visible" id="resetFab">
+  <button class="fab visible" id="resetFab" type="button" aria-label="入力をリセット">
     <span class="material-symbols-outlined">refresh</span>
   </button>
 
-  <!-- スナックバー -->
-  <div class="snackbar" id="snackbar"></div>
-
+  <div class="snackbar" id="snackbar" role="status" aria-live="polite"></div>
   <script type="module" src="js/main.js"></script>
 </body>
 
