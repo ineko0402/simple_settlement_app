@@ -5,6 +5,7 @@ import { initSettlement } from './settlement.js';
 import { initNyukin, loadNyukinSettings } from './nyukin.js';
 import { initImportTax } from './import-tax.js';
 import { initLedger } from './ledger.js';
+import { initLedgerSummary } from './ledger-summary.js';
 import { initFab } from './fab.js';
 import { initKeyboardSupport } from './keyboard.js';
 
@@ -16,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNyukin();
   initImportTax();
   initLedger();
+  initLedgerSummary();
   initFab();
   initKeyboardSupport();
   loadNyukinSettings();
