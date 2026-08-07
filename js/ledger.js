@@ -1,9 +1,13 @@
 import { formatNumber, parseIntSafe, showSnackbar } from './utils.js';
-import { loadLedgerEntries, saveLedgerEntries } from './ledger-storage.js';
+import {
+  loadLedgerEntries,
+  loadLedgerCarryovers,
+  saveLedgerEntries
+} from './ledger-storage.js';
+import { calculateBalanceToEntry } from './ledger-summary.js';
 
 const ledgerBody = document.getElementById('ledgerBody');
 const ledgerEmpty = document.getElementById('ledgerEmpty');
-const ledgerBalance = document.getElementById('ledgerBalance');
 const addLedgerEntry = document.getElementById('addLedgerEntry');
 
 let ledgerEntries = [];
@@ -34,33 +38,21 @@ function getSortedEntries() {
   });
 }
 
-function getBalance(entries, targetId = '') {
-  let balance = 0;
-
-  for (const entry of entries) {
-    balance += entry.type === 'income' ? entry.amount : -entry.amount;
-    if (entry.id === targetId) break;
-  }
-
-  return balance;
-}
-
 function formatAmount(amount) {
   return amount > 0 ? formatNumber(amount) : '';
 }
 
 function saveEntries() {
   saveLedgerEntries(ledgerEntries);
-  updateBalance();
-}
-
-function updateBalance() {
-  const balance = getBalance(getSortedEntries());
-  ledgerBalance.textContent = `${formatNumber(balance)} 円`;
+  window.dispatchEvent(new Event('ledger:changed'));
 }
 
 function showEntryBalance(entryId) {
-  const balance = getBalance(getSortedEntries(), entryId);
+  const balance = calculateBalanceToEntry(
+    ledgerEntries,
+    loadLedgerCarryovers(),
+    entryId
+  );
   showSnackbar(`この行までの残高：${formatNumber(balance)} 円`);
 }
 
@@ -203,7 +195,6 @@ function renderEntries() {
   const sortedEntries = getSortedEntries();
   ledgerBody.replaceChildren(...sortedEntries.map(createEntryRow));
   ledgerEmpty.hidden = sortedEntries.length > 0;
-  updateBalance();
 }
 
 function addEntry() {
