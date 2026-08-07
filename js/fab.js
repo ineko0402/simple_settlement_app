@@ -1,4 +1,3 @@
-/root/.profile: line 9: /dev/null: Permission denied
 import { showSnackbar } from './utils.js';
 import { getCurrentSectionId } from './navigation.js';
 import { resetSettlement } from './settlement.js';
