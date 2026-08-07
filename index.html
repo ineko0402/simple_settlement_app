@@ -28,7 +28,8 @@
     <div class="header-heading">
       <h1 class="header-title">会計仕訳ツール</h1>
       <span class="header-balance" id="headerBalance" hidden>
-        残高 <strong id="ledgerBalance">0 円</strong>
+        <span id="ledgerBalanceLabel">残高</span>
+        <strong id="ledgerBalance">0 円</strong>
       </span>
     </div>
     <button class="theme-toggle" id="themeToggle" type="button" aria-label="テーマを切り替え">
@@ -154,18 +155,38 @@
     </section>
 
     <section id="ledger" class="section ledger-section">
-      <div class="ledger-table-wrap">
-        <div class="ledger-header" aria-hidden="true">
-          <span>日付</span><span>内容</span><span>金額</span><span></span>
-        </div>
-        <div id="ledgerBody"></div>
-        <p class="ledger-empty" id="ledgerEmpty">「行を追加」から入力を始めます。</p>
+      <div class="ledger-view-tabs" role="tablist" aria-label="帳簿表示">
+        <button class="ledger-view-tab active" type="button" data-ledger-view="input">入力</button>
+        <button class="ledger-view-tab" type="button" data-ledger-view="daily">日次</button>
+        <button class="ledger-view-tab" type="button" data-ledger-view="weekly">週次</button>
+        <button class="ledger-view-tab" type="button" data-ledger-view="monthly">月次</button>
       </div>
 
-      <button class="btn btn-primary ledger-add" id="addLedgerEntry" type="button">
-        <span class="material-symbols-outlined">add</span>
-        行を追加
-      </button>
+      <div id="ledgerInputView">
+        <div class="ledger-table-wrap">
+          <div class="ledger-header" aria-hidden="true">
+            <span>日付</span><span>内容</span><span>金額</span><span></span>
+          </div>
+          <div id="ledgerBody"></div>
+          <p class="ledger-empty" id="ledgerEmpty">「行を追加」から入力を始めます。</p>
+        </div>
+
+        <button class="btn btn-primary ledger-add" id="addLedgerEntry" type="button">
+          <span class="material-symbols-outlined">add</span>
+          行を追加
+        </button>
+      </div>
+
+      <div id="ledgerSummaryView" hidden>
+        <div class="ledger-period">
+          <button class="ledger-period-button" id="ledgerPrevMonth" type="button" aria-label="前月">‹</button>
+          <strong id="ledgerPeriodLabel"></strong>
+          <button class="ledger-period-button" id="ledgerNextMonth" type="button" aria-label="翌月">›</button>
+        </div>
+
+        <div class="ledger-carry-warning" id="ledgerCarryWarning" hidden></div>
+        <div class="ledger-summary-list" id="ledgerSummaryList"></div>
+      </div>
     </section>
   </main>
 
