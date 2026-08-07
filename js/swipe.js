@@ -1,6 +1,12 @@
-import { navigateToSection, sectionIds, currentSectionIndex } from './navigation.js';
+import {
+  navigateToSection,
+  sectionIds,
+  currentSectionIndex,
+  getCurrentSectionId
+} from './navigation.js';
 
 let touchStartX = 0;
+let touchStartY = 0;
 let isDragging = false;
 const sections = document.querySelectorAll('.section');
 
@@ -9,19 +15,15 @@ function updateSectionsTransform(diff) {
   const nextSection = sections[(currentSectionIndex + 1) % sectionIds.length];
   const prevSection = sections[(currentSectionIndex - 1 + sectionIds.length) % sectionIds.length];
 
-  // 現在のセクション
   currentSection.style.transform = `translateX(${diff}px)`;
   currentSection.classList.add('switching');
 
-  // 次のセクション
   if (diff < 0) {
     nextSection.style.transform = `translateX(${window.innerWidth + diff}px)`;
     nextSection.classList.add('next', 'switching');
     prevSection.classList.remove('prev', 'switching');
     prevSection.style.transform = '';
-  }
-  // 前のセクション
-  else if (diff > 0) {
+  } else if (diff > 0) {
     prevSection.style.transform = `translateX(${-window.innerWidth + diff}px)`;
     prevSection.classList.add('prev', 'switching');
     nextSection.classList.remove('next', 'switching');
@@ -30,45 +32,54 @@ function updateSectionsTransform(diff) {
 }
 
 function clearTransitions() {
-  sections.forEach(s => {
-    s.classList.remove('switching');
-    s.style.transform = '';
+  sections.forEach(section => {
+    section.classList.remove('switching');
+    section.style.transform = '';
   });
 }
 
+function canStartSwipe(target) {
+  if (getCurrentSectionId() === 'ledger') return false;
+  return !target.closest('input, select, textarea, button');
+}
+
 export function initSwipe() {
-  document.addEventListener('touchstart', e => {
-    touchStartX = e.changedTouches[0].screenX;
-    isDragging = true;
+  document.addEventListener('touchstart', event => {
+    isDragging = canStartSwipe(event.target);
+    if (!isDragging) return;
+
+    touchStartX = event.changedTouches[0].screenX;
+    touchStartY = event.changedTouches[0].screenY;
   }, { passive: true });
 
-  document.addEventListener('touchmove', e => {
+  document.addEventListener('touchmove', event => {
     if (!isDragging) return;
-    const currentX = e.changedTouches[0].screenX;
-    const diff = currentX - touchStartX;
 
-    // スクロールを抑制せず、水平方向の動きのみに反応
-    if (Math.abs(diff) > 10) {
-      updateSectionsTransform(diff);
+    const diffX = event.changedTouches[0].screenX - touchStartX;
+    const diffY = event.changedTouches[0].screenY - touchStartY;
+    const horizontalMove = Math.abs(diffX) > Math.abs(diffY) * 1.3;
+
+    if (horizontalMove && Math.abs(diffX) > 10) {
+      updateSectionsTransform(diffX);
     }
   }, { passive: true });
 
-  document.addEventListener('touchend', e => {
+  document.addEventListener('touchend', event => {
     if (!isDragging) return;
     isDragging = false;
 
-    const touchEndX = e.changedTouches[0].screenX;
-    const diff = touchEndX - touchStartX;
+    const diffX = event.changedTouches[0].screenX - touchStartX;
+    const diffY = event.changedTouches[0].screenY - touchStartY;
     const threshold = window.innerWidth / 4;
+    const horizontalMove = Math.abs(diffX) > Math.abs(diffY) * 1.3;
 
     clearTransitions();
+    if (!horizontalMove) return;
 
-    if (diff < -threshold) {
-      // 次へ
+    if (diffX < -threshold) {
       const nextIndex = (currentSectionIndex + 1) % sectionIds.length;
       navigateToSection(sectionIds[nextIndex]);
-    } else if (diff > threshold) {
-      // 前へ
+    } else if (diffX > threshold) {
       const prevIndex = (currentSectionIndex - 1 + sectionIds.length) % sectionIds.length;
       navigateToSection(sectionIds[prevIndex]);
     }
