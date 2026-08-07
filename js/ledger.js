@@ -1,4 +1,3 @@
-/root/.profile: line 9: /dev/null: Permission denied
 import { formatNumber, parseIntSafe, showSnackbar } from './utils.js';
 import { loadLedgerEntries, saveLedgerEntries } from './ledger-storage.js';
 
