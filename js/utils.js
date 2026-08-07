@@ -1,4 +1,3 @@
-/root/.profile: line 9: /dev/null: Permission denied
 let snackbarTimer = 0;
 
 export const parseIntSafe = value => {
