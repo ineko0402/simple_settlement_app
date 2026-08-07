@@ -1,4 +1,3 @@
-/root/.profile: line 9: /dev/null: Permission denied
 const navItems = document.querySelectorAll('.nav-item');
 const sections = document.querySelectorAll('.section');
 const resetFab = document.getElementById('resetFab');
