@@ -187,6 +187,11 @@
         <div class="ledger-carry-warning" id="ledgerCarryWarning" hidden></div>
         <div class="ledger-summary-list" id="ledgerSummaryList"></div>
       </div>
+
+      <button class="btn btn-secondary ledger-data-button" id="ledgerDataManagement" type="button">
+        <span class="material-symbols-outlined">database</span>
+        データ管理
+      </button>
     </section>
   </main>
 
@@ -222,6 +227,35 @@
       <div class="ledger-modal-actions">
         <button class="btn btn-secondary" id="ledgerModalSaveContinue" type="button">保存して続ける</button>
         <button class="btn btn-primary" id="ledgerModalSave" type="button">保存</button>
+      </div>
+    </section>
+  </div>
+
+  <div class="ledger-modal" id="ledgerDataModal" hidden>
+    <section class="ledger-modal-sheet" role="dialog" aria-modal="true" aria-labelledby="ledgerDataModalTitle">
+      <div class="ledger-modal-header">
+        <h2 id="ledgerDataModalTitle">データ管理</h2>
+        <button class="ledger-modal-close" id="ledgerDataModalClose" type="button" aria-label="閉じる">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+
+      <p class="ledger-data-description">端末内の帳簿データをファイルに保存・復元できます。</p>
+      <div class="ledger-data-actions">
+        <button class="btn btn-primary" id="ledgerBackupExport" type="button">完全バックアップ（JSON）</button>
+        <button class="btn btn-secondary" id="ledgerCsvExport" type="button">一覧をCSVで出力</button>
+        <button class="btn btn-secondary" id="ledgerBackupImport" type="button">バックアップから復元</button>
+        <input id="ledgerBackupFile" type="file" accept="application/json,.json" hidden>
+      </div>
+
+      <div class="ledger-import-preview" id="ledgerImportPreview" hidden>
+        <h3>復元内容の確認</h3>
+        <dl id="ledgerImportDetails"></dl>
+        <p class="ledger-import-warning">現在の明細と繰越データは、すべてこの内容に置き換わります。</p>
+        <div class="ledger-modal-actions">
+          <button class="btn btn-secondary" id="ledgerImportCancel" type="button">キャンセル</button>
+          <button class="btn btn-primary" id="ledgerImportConfirm" type="button">復元する</button>
+        </div>
       </div>
     </section>
   </div>

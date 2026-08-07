@@ -445,6 +445,62 @@ body.ledger-modal-open {
   margin-top: 16px;
 }
 
+.ledger-data-button {
+  width: 100%;
+  margin-top: 12px;
+}
+
+.ledger-data-description {
+  margin: 0 0 16px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.ledger-data-actions {
+  display: grid;
+  gap: 10px;
+}
+
+.ledger-import-preview {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.ledger-import-preview h3 {
+  margin: 0 0 12px;
+  font-size: 16px;
+}
+
+.ledger-import-preview dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 16px;
+  margin: 0;
+  font-size: 14px;
+}
+
+.ledger-import-preview dt {
+  color: var(--text-secondary);
+}
+
+.ledger-import-preview dd {
+  margin: 0;
+  text-align: right;
+  font-weight: 600;
+}
+
+.ledger-import-warning {
+  margin: 16px 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: rgba(244, 67, 54, 0.14);
+  color: #ef5350;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
 @media (max-width: 420px) {
   .ledger-section {
     padding-right: 8px;

@@ -6,6 +6,7 @@ import { initNyukin, loadNyukinSettings } from './nyukin.js';
 import { initImportTax } from './import-tax.js';
 import { initLedger } from './ledger.js';
 import { initLedgerSummary } from './ledger-summary.js';
+import { initLedgerBackup } from './ledger-backup.js';
 import { initFab } from './fab.js';
 import { initKeyboardSupport } from './keyboard.js';
 
@@ -18,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initImportTax();
   initLedger();
   initLedgerSummary();
+  initLedgerBackup();
   initFab();
   initKeyboardSupport();
   loadNyukinSettings();
