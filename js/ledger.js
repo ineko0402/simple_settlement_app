@@ -9,8 +9,19 @@ import { calculateBalanceToEntry } from './ledger-summary.js';
 const ledgerBody = document.getElementById('ledgerBody');
 const ledgerEmpty = document.getElementById('ledgerEmpty');
 const addLedgerEntry = document.getElementById('addLedgerEntry');
+const ledgerEntryModal = document.getElementById('ledgerEntryModal');
+const ledgerModalClose = document.getElementById('ledgerModalClose');
+const ledgerModalDate = document.getElementById('ledgerModalDate');
+const ledgerModalDateLabel = document.getElementById('ledgerModalDateLabel');
+const ledgerModalDescription = document.getElementById('ledgerModalDescription');
+const ledgerModalExpense = document.getElementById('ledgerModalExpense');
+const ledgerModalIncome = document.getElementById('ledgerModalIncome');
+const ledgerModalAmount = document.getElementById('ledgerModalAmount');
+const ledgerModalSaveContinue = document.getElementById('ledgerModalSaveContinue');
+const ledgerModalSave = document.getElementById('ledgerModalSave');
 
 let ledgerEntries = [];
+let modalEntryType = 'expense';
 
 function createId() {
   if (window.crypto && typeof window.crypto.randomUUID === 'function') {
@@ -197,13 +208,56 @@ function renderEntries() {
   ledgerEmpty.hidden = sortedEntries.length > 0;
 }
 
-function addEntry() {
+function setModalType(type) {
+  modalEntryType = type;
+  const isExpense = type === 'expense';
+  ledgerModalExpense.classList.toggle('active', isExpense);
+  ledgerModalExpense.setAttribute('aria-pressed', String(isExpense));
+  ledgerModalIncome.classList.toggle('active', !isExpense);
+  ledgerModalIncome.setAttribute('aria-pressed', String(!isExpense));
+}
+
+function updateModalDateLabel() {
+  ledgerModalDateLabel.textContent = formatDate(ledgerModalDate.value);
+}
+
+function openEntryModal() {
+  ledgerModalDate.value = getToday();
+  ledgerModalDescription.value = '';
+  ledgerModalAmount.value = '';
+  setModalType('expense');
+  updateModalDateLabel();
+  ledgerEntryModal.hidden = false;
+  document.body.classList.add('ledger-modal-open');
+  window.requestAnimationFrame(() => ledgerModalDescription.focus());
+}
+
+function closeEntryModal() {
+  ledgerEntryModal.hidden = true;
+  document.body.classList.remove('ledger-modal-open');
+  addLedgerEntry.focus();
+}
+
+function saveModalEntry(continueAfterSave) {
+  if (!ledgerModalDate.value) {
+    showSnackbar('日付を入力してください');
+    ledgerModalDate.focus();
+    return;
+  }
+
+  const amount = Math.abs(Math.trunc(parseIntSafe(ledgerModalAmount.value)));
+  if (amount <= 0) {
+    showSnackbar('1円以上の金額を入力してください');
+    ledgerModalAmount.focus();
+    return;
+  }
+
   const entry = {
     id: createId(),
-    date: getToday(),
-    description: '',
-    type: 'expense',
-    amount: 0,
+    date: ledgerModalDate.value,
+    description: ledgerModalDescription.value.trim(),
+    type: modalEntryType,
+    amount,
     createdAt: new Date().toISOString()
   };
 
@@ -211,15 +265,47 @@ function addEntry() {
   saveEntries();
   renderEntries();
 
-  const descriptionInput = ledgerBody.querySelector(
-    `[data-entry-id="${entry.id}"] .ledger-description`
-  );
-  descriptionInput?.focus();
+  showEntryBalance(entry.id);
+
+  if (continueAfterSave) {
+    ledgerModalDescription.value = '';
+    ledgerModalAmount.value = '';
+    ledgerModalDescription.focus();
+    return;
+  }
+
+  closeEntryModal();
+  ledgerBody.querySelector(`[data-entry-id="${entry.id}"]`)?.scrollIntoView({
+    behavior: 'smooth',
+    block: 'nearest'
+  });
 }
 
 export function initLedger() {
   ledgerEntries = loadLedgerEntries();
   saveLedgerEntries(ledgerEntries);
-  addLedgerEntry.addEventListener('click', addEntry);
+  addLedgerEntry.addEventListener('click', openEntryModal);
+  ledgerModalClose.addEventListener('click', closeEntryModal);
+  ledgerEntryModal.addEventListener('click', event => {
+    if (event.target === ledgerEntryModal) closeEntryModal();
+  });
+  ledgerModalDate.addEventListener('change', updateModalDateLabel);
+  ledgerModalExpense.addEventListener('click', () => setModalType('expense'));
+  ledgerModalIncome.addEventListener('click', () => setModalType('income'));
+  ledgerModalDescription.addEventListener('keydown', event => {
+    if (event.key !== 'Enter') return;
+    event.preventDefault();
+    ledgerModalAmount.focus();
+  });
+  ledgerModalAmount.addEventListener('keydown', event => {
+    if (event.key !== 'Enter') return;
+    event.preventDefault();
+    saveModalEntry(false);
+  });
+  ledgerModalSaveContinue.addEventListener('click', () => saveModalEntry(true));
+  ledgerModalSave.addEventListener('click', () => saveModalEntry(false));
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && !ledgerEntryModal.hidden) closeEntryModal();
+  });
   renderEntries();
 }
