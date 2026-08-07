@@ -1,4 +1,4 @@
-const CACHE_NAME = 'accounting-app-v3';
+const CACHE_NAME = 'accounting-app-v4';
 const URLS_TO_CACHE = [
   './',
   './index.html',
@@ -14,6 +14,7 @@ const URLS_TO_CACHE = [
   './js/import-tax.js',
   './js/ledger.js',
   './js/ledger-storage.js',
+  './js/ledger-summary.js',
   './js/fab.js',
   './js/keyboard.js',
   './js/utils.js'
