@@ -1,4 +1,5 @@
 const STORAGE_KEY = 'pocketLedgerEntries';
+const CARRYOVER_STORAGE_KEY = 'pocketLedgerCarryovers';
 
 function getLegacyType(entry) {
   return Number(entry.income) > 0 ? 'income' : 'expense';
@@ -41,4 +42,46 @@ export function loadLedgerEntries() {
 
 export function saveLedgerEntries(entries) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(entries.map(normalizeEntry)));
+}
+
+function normalizeCarryover(carryover) {
+  return {
+    amount: Number(carryover.amount) || 0,
+    mode: carryover.mode === 'carry' ? 'carry' : 'manual',
+    sourceMonth: String(carryover.sourceMonth || ''),
+    updatedAt: String(carryover.updatedAt || new Date().toISOString())
+  };
+}
+
+export function loadLedgerCarryovers() {
+  try {
+    const storedCarryovers = JSON.parse(
+      localStorage.getItem(CARRYOVER_STORAGE_KEY) || '{}'
+    );
+
+    if (!storedCarryovers || Array.isArray(storedCarryovers)) return {};
+
+    return Object.fromEntries(
+      Object.entries(storedCarryovers)
+        .filter(([month]) => /^\d{4}-\d{2}$/.test(month))
+        .map(([month, carryover]) => [month, normalizeCarryover(carryover)])
+    );
+  } catch (error) {
+    console.error('繰越データを読み込めませんでした。', error);
+    return {};
+  }
+}
+
+export function saveLedgerCarryovers(carryovers) {
+  const normalizedCarryovers = Object.fromEntries(
+    Object.entries(carryovers).map(([month, carryover]) => [
+      month,
+      normalizeCarryover(carryover)
+    ])
+  );
+
+  localStorage.setItem(
+    CARRYOVER_STORAGE_KEY,
+    JSON.stringify(normalizedCarryovers)
+  );
 }
