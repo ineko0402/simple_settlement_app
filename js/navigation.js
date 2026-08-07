@@ -1,6 +1,7 @@
 const navItems = document.querySelectorAll('.nav-item');
 const sections = document.querySelectorAll('.section');
 const resetFab = document.getElementById('resetFab');
+const headerBalance = document.getElementById('headerBalance');
 
 export let currentSectionIndex = 0;
 export const sectionIds = ['settlement', 'nyukin', 'import', 'ledger'];
@@ -9,6 +10,10 @@ function updateFab(targetId) {
   const ledgerActive = targetId === 'ledger';
   resetFab.classList.toggle('hidden', ledgerActive);
   resetFab.classList.toggle('visible', !ledgerActive);
+}
+
+function updateHeader(targetId) {
+  headerBalance.hidden = targetId !== 'ledger';
 }
 
 export function navigateToSection(targetId) {
@@ -33,11 +38,13 @@ export function navigateToSection(targetId) {
 
   currentSectionIndex = targetIndex;
   updateFab(targetId);
+  updateHeader(targetId);
 }
 
 export function initNavigation() {
   sections[0]?.classList.add('active');
   updateFab(sectionIds[0]);
+  updateHeader(sectionIds[0]);
 
   navItems.forEach(item => {
     item.addEventListener('click', event => {

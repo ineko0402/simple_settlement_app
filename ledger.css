@@ -1,24 +1,24 @@
 /* お小遣い帳 */
-.ledger-summary {
+.header-heading {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  align-items: baseline;
+  min-width: 0;
   gap: 12px;
 }
 
-.ledger-summary-label {
+.header-balance {
   color: var(--text-secondary);
-  font-size: 0.9rem;
+  font-size: 0.78rem;
+  white-space: nowrap;
 }
 
-.ledger-summary-value {
+.header-balance strong {
   color: var(--accent);
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 0.95rem;
 }
 
 .ledger-table-wrap {
-  overflow-x: auto;
+  overflow: hidden;
   border-radius: 12px;
   background: var(--card-bg);
   box-shadow: var(--shadow);
@@ -27,25 +27,27 @@
 .ledger-header,
 .ledger-row {
   display: grid;
-  grid-template-columns: minmax(112px, 1.15fr) minmax(92px, 1fr) minmax(74px, 0.8fr) minmax(74px, 0.8fr) 40px;
-  min-width: 430px;
+  grid-template-columns: 58px minmax(0, 1fr) 112px 30px;
+  width: 100%;
+  align-items: center;
 }
 
 .ledger-header {
   position: sticky;
   top: 0;
   z-index: 2;
-  padding: 10px 8px;
+  padding: 7px 4px;
   background: var(--card-bg);
   border-bottom: 1px solid var(--border);
   color: var(--text-secondary);
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   font-weight: 600;
   text-align: center;
 }
 
 .ledger-row {
-  padding: 8px;
+  min-height: 46px;
+  padding: 4px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -56,10 +58,10 @@
 .ledger-input {
   width: 100%;
   min-width: 0;
-  padding: 10px 7px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--bg);
+  padding: 8px 6px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: transparent;
   color: var(--text);
   font-size: 16px;
 }
@@ -67,10 +69,60 @@
 .ledger-input:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.12);
+  background: var(--bg);
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
+}
+
+.ledger-date-field {
+  position: relative;
+  height: 38px;
+}
+
+.ledger-date-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.ledger-date-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.ledger-transaction {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  align-items: center;
+}
+
+.ledger-type-toggle {
+  width: 28px;
+  height: 30px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--bg);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ledger-type-toggle.income {
+  color: var(--success);
+}
+
+.ledger-type-toggle.expense {
+  color: var(--error);
 }
 
 .ledger-amount {
+  padding-right: 4px;
   text-align: right;
 }
 
@@ -78,6 +130,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 30px;
+  height: 36px;
   border: none;
   background: transparent;
   color: var(--error);
@@ -85,19 +139,7 @@
 }
 
 .ledger-delete .material-symbols-outlined {
-  font-size: 21px;
-}
-
-.ledger-row-balance {
-  grid-column: 1 / -1;
-  justify-self: end;
-  margin-top: 6px;
-  padding: 4px 8px;
-  border: none;
-  background: transparent;
-  color: var(--accent);
-  font-size: 0.75rem;
-  cursor: pointer;
+  font-size: 19px;
 }
 
 .ledger-empty {
@@ -107,12 +149,20 @@
 }
 
 .ledger-add {
-  margin-top: 16px;
+  margin-top: 12px;
 }
 
 @media (max-width: 420px) {
   .ledger-section {
     padding-right: 8px;
     padding-left: 8px;
+  }
+
+  .header-heading {
+    gap: 8px;
+  }
+
+  .header-title {
+    font-size: 1rem;
   }
 }
