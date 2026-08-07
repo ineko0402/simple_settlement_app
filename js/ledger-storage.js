@@ -1,4 +1,3 @@
-/root/.profile: line 9: /dev/null: Permission denied
 const STORAGE_KEY = 'pocketLedgerEntries';
 
 function normalizeEntry(entry) {
