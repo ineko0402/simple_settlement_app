@@ -1,4 +1,3 @@
-/root/.profile: line 9: /dev/null: Permission denied
 import { initTheme } from './theme.js';
 import { initNavigation } from './navigation.js';
 import { initSwipe } from './swipe.js';
