@@ -190,6 +190,42 @@
     </section>
   </main>
 
+  <div class="ledger-modal" id="ledgerEntryModal" hidden>
+    <section class="ledger-modal-sheet" role="dialog" aria-modal="true" aria-labelledby="ledgerModalTitle">
+      <div class="ledger-modal-header">
+        <h2 id="ledgerModalTitle">新しい明細</h2>
+        <button class="ledger-modal-close" id="ledgerModalClose" type="button" aria-label="閉じる">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+
+      <div class="ledger-modal-fields">
+        <label class="ledger-modal-label">日付</label>
+        <div class="ledger-modal-date">
+          <span id="ledgerModalDateLabel" aria-hidden="true"></span>
+          <input id="ledgerModalDate" type="date" aria-label="日付">
+        </div>
+
+        <label class="ledger-modal-label" for="ledgerModalDescription">内容</label>
+        <input class="ledger-modal-input" id="ledgerModalDescription" type="text" placeholder="例：昼食" autocomplete="off">
+
+        <span class="ledger-modal-label">種別</span>
+        <div class="ledger-modal-types" role="group" aria-label="入出金区分">
+          <button class="ledger-modal-type active" id="ledgerModalExpense" type="button">－ 出金</button>
+          <button class="ledger-modal-type" id="ledgerModalIncome" type="button">＋ 入金</button>
+        </div>
+
+        <label class="ledger-modal-label" for="ledgerModalAmount">金額</label>
+        <input class="ledger-modal-input ledger-modal-amount" id="ledgerModalAmount" type="text" inputmode="numeric" placeholder="0">
+      </div>
+
+      <div class="ledger-modal-actions">
+        <button class="btn btn-secondary" id="ledgerModalSaveContinue" type="button">保存して続ける</button>
+        <button class="btn btn-primary" id="ledgerModalSave" type="button">保存</button>
+      </div>
+    </section>
+  </div>
+
   <nav class="bottom-nav" aria-label="メインメニュー">
     <button class="nav-item active" data-section="settlement" type="button">
       <span class="material-symbols-outlined nav-icon">receipt</span><span class="nav-label">清算</span>
