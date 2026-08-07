@@ -22,6 +22,11 @@ function getToday() {
   return new Date(date.getTime() - offset).toISOString().slice(0, 10);
 }
 
+function formatDate(dateValue) {
+  const [, month = '', day = ''] = dateValue.split('-');
+  return month && day ? `${Number(month)}/${Number(day)}` : '';
+}
+
 function getSortedEntries() {
   return [...ledgerEntries].sort((entryA, entryB) => {
     const dateComparison = entryA.date.localeCompare(entryB.date);
@@ -33,7 +38,7 @@ function getBalance(entries, targetId = '') {
   let balance = 0;
 
   for (const entry of entries) {
-    balance += entry.income - entry.expense;
+    balance += entry.type === 'income' ? entry.amount : -entry.amount;
     if (entry.id === targetId) break;
   }
 
@@ -67,23 +72,26 @@ function updateEntry(entryId, fieldName, fieldValue) {
   saveEntries();
 }
 
-function updateAmount(entryId, fieldName, fieldValue, currentInput) {
+function updateAmount(entryId, fieldValue, currentInput) {
   const entry = ledgerEntries.find(item => item.id === entryId);
   if (!entry) return;
 
-  const amount = Math.max(0, Math.trunc(parseIntSafe(fieldValue)));
-  const oppositeField = fieldName === 'income' ? 'expense' : 'income';
-
-  entry[fieldName] = amount;
-  if (amount > 0) entry[oppositeField] = 0;
-
+  entry.amount = Math.abs(Math.trunc(parseIntSafe(fieldValue)));
   saveEntries();
-  currentInput.value = formatAmount(amount);
+  currentInput.value = formatAmount(entry.amount);
+  showEntryBalance(entryId);
+}
 
-  const row = currentInput.closest('.ledger-row');
-  const oppositeInput = row?.querySelector(`[data-field="${oppositeField}"]`);
-  if (amount > 0 && oppositeInput) oppositeInput.value = '';
+function toggleType(entryId, toggleButton) {
+  const entry = ledgerEntries.find(item => item.id === entryId);
+  if (!entry) return;
 
+  entry.type = entry.type === 'income' ? 'expense' : 'income';
+  toggleButton.textContent = entry.type === 'income' ? '＋' : '－';
+  toggleButton.classList.toggle('income', entry.type === 'income');
+  toggleButton.classList.toggle('expense', entry.type === 'expense');
+  toggleButton.setAttribute('aria-label', entry.type === 'income' ? '入金' : '出金');
+  saveEntries();
   showEntryBalance(entryId);
 }
 
@@ -104,16 +112,64 @@ function createInput(className, value, label) {
   return input;
 }
 
-function createEntryRow(entry) {
-  const row = document.createElement('div');
-  row.className = 'ledger-row';
-  row.dataset.entryId = entry.id;
+function createDateField(entry) {
+  const dateField = document.createElement('div');
+  dateField.className = 'ledger-date-field';
 
-  const dateInput = createInput('ledger-input ledger-date', entry.date, '日付');
+  const dateLabel = document.createElement('span');
+  dateLabel.className = 'ledger-date-label';
+  dateLabel.textContent = formatDate(entry.date);
+  dateLabel.setAttribute('aria-hidden', 'true');
+
+  const dateInput = createInput('ledger-date-input', entry.date, '日付');
   dateInput.type = 'date';
   dateInput.addEventListener('change', event => {
     updateEntry(entry.id, 'date', event.target.value);
     renderEntries();
+    showEntryBalance(entry.id);
+  });
+
+  dateField.append(dateLabel, dateInput);
+  return dateField;
+}
+
+function createTransactionField(entry) {
+  const transactionField = document.createElement('div');
+  transactionField.className = 'ledger-transaction';
+
+  const toggleButton = document.createElement('button');
+  toggleButton.className = `ledger-type-toggle ${entry.type}`;
+  toggleButton.type = 'button';
+  toggleButton.textContent = entry.type === 'income' ? '＋' : '－';
+  toggleButton.setAttribute('aria-label', entry.type === 'income' ? '入金' : '出金');
+  toggleButton.addEventListener('click', () => toggleType(entry.id, toggleButton));
+
+  const amountInput = createInput(
+    'ledger-input ledger-amount',
+    formatAmount(entry.amount),
+    '金額'
+  );
+  amountInput.type = 'text';
+  amountInput.inputMode = 'numeric';
+  amountInput.placeholder = '0';
+  amountInput.addEventListener('focus', () => {
+    amountInput.value = entry.amount || '';
+  });
+  amountInput.addEventListener('blur', event => {
+    updateAmount(entry.id, event.target.value, event.target);
+  });
+
+  transactionField.append(toggleButton, amountInput);
+  return transactionField;
+}
+
+function createEntryRow(entry) {
+  const row = document.createElement('div');
+  row.className = 'ledger-row';
+  row.dataset.entryId = entry.id;
+  row.addEventListener('click', event => {
+    if (event.target.closest('.ledger-delete')) return;
+    showEntryBalance(entry.id);
   });
 
   const descriptionInput = createInput(
@@ -127,38 +183,6 @@ function createEntryRow(entry) {
     updateEntry(entry.id, 'description', event.target.value);
   });
 
-  const incomeInput = createInput(
-    'ledger-input ledger-amount',
-    formatAmount(entry.income),
-    '入金'
-  );
-  incomeInput.type = 'text';
-  incomeInput.inputMode = 'numeric';
-  incomeInput.dataset.field = 'income';
-  incomeInput.placeholder = '0';
-  incomeInput.addEventListener('focus', () => {
-    incomeInput.value = entry.income || '';
-  });
-  incomeInput.addEventListener('blur', event => {
-    updateAmount(entry.id, 'income', event.target.value, event.target);
-  });
-
-  const expenseInput = createInput(
-    'ledger-input ledger-amount',
-    formatAmount(entry.expense),
-    '出金'
-  );
-  expenseInput.type = 'text';
-  expenseInput.inputMode = 'numeric';
-  expenseInput.dataset.field = 'expense';
-  expenseInput.placeholder = '0';
-  expenseInput.addEventListener('focus', () => {
-    expenseInput.value = entry.expense || '';
-  });
-  expenseInput.addEventListener('blur', event => {
-    updateAmount(entry.id, 'expense', event.target.value, event.target);
-  });
-
   const deleteButton = document.createElement('button');
   deleteButton.className = 'ledger-delete';
   deleteButton.type = 'button';
@@ -166,13 +190,12 @@ function createEntryRow(entry) {
   deleteButton.innerHTML = '<span class="material-symbols-outlined">delete</span>';
   deleteButton.addEventListener('click', () => deleteEntry(entry.id));
 
-  const balanceButton = document.createElement('button');
-  balanceButton.className = 'ledger-row-balance';
-  balanceButton.type = 'button';
-  balanceButton.textContent = 'この行までの残高を表示';
-  balanceButton.addEventListener('click', () => showEntryBalance(entry.id));
-
-  row.append(dateInput, descriptionInput, incomeInput, expenseInput, deleteButton, balanceButton);
+  row.append(
+    createDateField(entry),
+    descriptionInput,
+    createTransactionField(entry),
+    deleteButton
+  );
   return row;
 }
 
@@ -188,8 +211,8 @@ function addEntry() {
     id: createId(),
     date: getToday(),
     description: '',
-    income: 0,
-    expense: 0,
+    type: 'expense',
+    amount: 0,
     createdAt: new Date().toISOString()
   };
 
@@ -205,6 +228,7 @@ function addEntry() {
 
 export function initLedger() {
   ledgerEntries = loadLedgerEntries();
+  saveLedgerEntries(ledgerEntries);
   addLedgerEntry.addEventListener('click', addEntry);
   renderEntries();
 }
