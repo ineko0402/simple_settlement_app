@@ -25,7 +25,12 @@
 
 <body data-theme="dark">
   <header class="header">
-    <h1 class="header-title">会計仕訳ツール</h1>
+    <div class="header-heading">
+      <h1 class="header-title">会計仕訳ツール</h1>
+      <span class="header-balance" id="headerBalance" hidden>
+        残高 <strong id="ledgerBalance">0 円</strong>
+      </span>
+    </div>
     <button class="theme-toggle" id="themeToggle" type="button" aria-label="テーマを切り替え">
       <span class="material-symbols-outlined">dark_mode</span>
     </button>
@@ -149,17 +154,9 @@
     </section>
 
     <section id="ledger" class="section ledger-section">
-      <div class="card ledger-summary">
-        <div>
-          <div class="ledger-summary-label">現在の残高</div>
-          <div class="ledger-summary-value" id="ledgerBalance">0 円</div>
-        </div>
-        <span class="material-symbols-outlined">account_balance_wallet</span>
-      </div>
-
       <div class="ledger-table-wrap">
         <div class="ledger-header" aria-hidden="true">
-          <span>日付</span><span>内容</span><span>入金</span><span>出金</span><span></span>
+          <span>日付</span><span>内容</span><span>金額</span><span></span>
         </div>
         <div id="ledgerBody"></div>
         <p class="ledger-empty" id="ledgerEmpty">「行を追加」から入力を始めます。</p>
